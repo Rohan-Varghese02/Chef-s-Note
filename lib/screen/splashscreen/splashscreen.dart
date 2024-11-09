@@ -1,4 +1,5 @@
 import 'package:cook_book/const/colors.dart';
+import 'package:cook_book/const/utils.dart';
 import 'package:cook_book/main.dart';
 import 'package:cook_book/screen/mainscreen/mainview.dart';
 import 'package:cook_book/screen/profile/profile.dart';
@@ -61,7 +62,7 @@ class _SplashscreenState extends State<Splashscreen> {
   }
   // Delay of Splashscreen
     Future<void> goToProfilePage() async {
-    await Future.delayed(Duration(seconds: 5));
+    await Future.delayed(const Duration(seconds: 5));
     Navigator.of(context)
         .pushReplacement(MaterialPageRoute(builder: (ctx) => const Homescreen()));
   }

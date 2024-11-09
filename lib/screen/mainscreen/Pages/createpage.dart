@@ -1,7 +1,5 @@
 import 'package:cook_book/const/colors.dart';
 import 'package:cook_book/db/dbfunction/category_notifier.dart';
-import 'package:cook_book/screen/mainscreen/Pages/createpagewidget/categorylist.dart';
-import 'package:cook_book/screen/mainscreen/Pages/createpagewidget/creationscreen.dart';
 import 'package:flutter/material.dart';
 
 class Createpage extends StatelessWidget {
@@ -11,10 +9,12 @@ class Createpage extends StatelessWidget {
   Widget build(BuildContext context) {
     getAllCategory();
     return Scaffold(
+      appBar: AppBar(
+        title: const Text('Create Your Recpies'),
+      ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          Navigator.of(context).push(
-              MaterialPageRoute(builder: (ctx) => const Creationscreen()));
+          
         },
         backgroundColor: const Color(primary),
         child: const Icon(
@@ -22,7 +22,6 @@ class Createpage extends StatelessWidget {
           color: Colors.white,
         ),
       ),
-      body: const Categorylist(),
     );
   }
 }

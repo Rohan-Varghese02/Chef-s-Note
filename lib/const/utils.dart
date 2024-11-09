@@ -9,3 +9,7 @@ pickImage(ImageSource source) async {
   // ignore: avoid_print
   print('No Image Selected');
 }
+
+// Used to check wheter the User logged in or not
+const save_State = 'UserLoggin';
+

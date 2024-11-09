@@ -3,8 +3,8 @@
 import 'dart:typed_data';
 
 import 'package:cook_book/const/colors.dart';
+import 'package:cook_book/const/utils.dart';
 import 'package:cook_book/db/model/user_model.dart';
-import 'package:cook_book/main.dart';
 import 'package:cook_book/screen/mainscreen/mainview.dart';
 import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
@@ -29,10 +29,13 @@ class Proceedbtn extends StatelessWidget {
       splashColor: const Color.fromARGB(226, 4, 160, 134),
       borderRadius: BorderRadius.circular(20),
       onTap: () async {
-        print(selectedCategories);
-        print(nameController.text);
         if (formkey.currentState?.validate() ?? false) {
           // Form is valid, perform your action
+          if (image == null) {
+            ScaffoldMessenger.of(context).showSnackBar(
+              const SnackBar(content: Text('Add Profile Picture')),
+            );
+          }
           if (selectedCategories.length < 2) {
             ScaffoldMessenger.of(context).showSnackBar(
               const SnackBar(content: Text('Enter atleast 2 Cuisines')),
@@ -40,8 +43,8 @@ class Proceedbtn extends StatelessWidget {
           } else {
             saveUserData(
                 nameController.text.trim(), image!, selectedCategories);
-            final _sharedPrefs = await SharedPreferences.getInstance();
-            await _sharedPrefs.setBool(save_State, true);
+            final sharedPrefs = await SharedPreferences.getInstance();
+            await sharedPrefs.setBool(save_State, true);
             print('Go to Next Page');
             Navigator.of(context).pushReplacement(
                 MaterialPageRoute(builder: (ctx) => const Mainview()));

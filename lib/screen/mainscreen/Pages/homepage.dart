@@ -16,7 +16,7 @@ class Homepage extends StatelessWidget {
       body: SafeArea(
         child: SingleChildScrollView(
           child: Padding(
-            padding: const EdgeInsets.all(8.0),
+            padding: const EdgeInsets.all(10.0),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -41,7 +41,7 @@ class Homepage extends StatelessWidget {
                   ]),
                 ),
                 const SizedBox(
-                  height: 5,
+                  height: 10,
                 ),
                 const Searchbar(),
                 const SizedBox(
@@ -64,9 +64,9 @@ class Homepage extends StatelessWidget {
                     IconButton(
                         onPressed: () {
                           Navigator.of(context).push(MaterialPageRoute(
-                              builder: (ctx) => Addcategory()));
+                              builder: (ctx) => const Addcategory()));
                         },
-                        icon: Icon(Icons.add))
+                        icon: const Icon(Icons.add))
                   ],
                 ),
                 SizedBox(

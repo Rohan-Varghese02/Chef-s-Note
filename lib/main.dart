@@ -1,11 +1,10 @@
-import 'package:cook_book/db/dbfunction/category_notifier.dart';
 import 'package:cook_book/db/model/custom_cat_model.dart';
 import 'package:cook_book/db/model/user_model.dart';
 import 'package:cook_book/screen/splashscreen/splashscreen.dart';
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 
-const save_State = 'UserLoggin';
+
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();

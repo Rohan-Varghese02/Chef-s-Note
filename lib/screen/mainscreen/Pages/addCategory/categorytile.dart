@@ -1,6 +1,7 @@
 import 'package:cook_book/const/colors.dart';
 import 'package:cook_book/db/dbfunction/category_notifier.dart';
 import 'package:cook_book/db/model/custom_cat_model.dart';
+import 'package:cook_book/screen/mainscreen/Pages/addCategory/detailedpage.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -27,22 +28,29 @@ class _CategorytileState extends State<Categorytile> {
             ),
             itemBuilder: (context, index) {
               final category = categoryList[index];
-              return Card(
-                shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(20),
-                    side: const BorderSide(
-                      width: 2,
-                      color: Color(primary),
-                    )),
-                color: const Color(0xffc5dad9),
-                elevation: 2,
-                child: Center(
-                  child: Text(
-                    category.title,
-                    style: GoogleFonts.poppins(
-                        fontSize: 18,
-                        fontWeight: FontWeight.bold,
-                        color: const Color(primary)),
+              return InkWell(
+                onTap: () {
+                  Navigator.of(context).push(
+                      MaterialPageRoute(builder: (ctx) => Detailedpage(data: category,)));
+                  print('Button Pressed');
+                },
+                child: Card(
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(20),
+                      side: const BorderSide(
+                        width: 2,
+                        color: Color(primary),
+                      )),
+                  color: const Color(0xffc5dad9),
+                  elevation: 2,
+                  child: Center(
+                    child: Text(
+                      category.title,
+                      style: GoogleFonts.poppins(
+                          fontSize: 18,
+                          fontWeight: FontWeight.bold,
+                          color: const Color(primary)),
+                    ),
                   ),
                 ),
               );
