@@ -4,8 +4,6 @@ import 'package:cook_book/screen/splashscreen/splashscreen.dart';
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 
-
-
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
@@ -31,6 +29,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return const MaterialApp(
+      debugShowCheckedModeBanner: false,
       home: Splashscreen(),
     );
   }
