@@ -1,23 +1,38 @@
 import 'package:cook_book/const/colors.dart';
+import 'package:cook_book/screen/mainscreen/Pages/createpagewidget/functions/recfunc.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 // import 'package:hive_flutter/hive_flutter.dart';
 
 class Recipedetails extends StatefulWidget {
-  const Recipedetails({super.key});
+  GlobalKey<FormState> key_form;
+  TextEditingController? name;
+  List<TextEditingController> listcontroller = [TextEditingController()];
+  List<TextEditingController> quantitycontroller = [TextEditingController()];
+  List<TextEditingController> directioncontroller = [TextEditingController()];
+
+  Recipedetails(
+      {super.key,
+      required this.name,
+      required this.key_form,
+      required this.listcontroller,
+      required this.quantitycontroller,
+      required this.directioncontroller});
 
   @override
   State<Recipedetails> createState() => _RecipedetailsState();
 }
 
 class _RecipedetailsState extends State<Recipedetails> {
-  List<TextEditingController> listcontroller = [TextEditingController()];
-  List<TextEditingController> quantitycontroller = [TextEditingController()];
-  List<TextEditingController> directioncontroller = [TextEditingController()];
+  //final key_form = GlobalKey<FormState>();
+  // List<TextEditingController> listcontroller = [TextEditingController()];
+  // List<TextEditingController> quantitycontroller = [TextEditingController()];
+  // List<TextEditingController> directioncontroller = [TextEditingController()];
 
   @override
   Widget build(BuildContext context) {
     return Form(
+      key: widget.key_form,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -29,6 +44,10 @@ class _RecipedetailsState extends State<Recipedetails> {
                 fontWeight: FontWeight.w500),
           ),
           TextFormField(
+            controller: widget.name,
+            validator: (value) {
+              return recipeNameValidation(value);
+            },
             decoration: const InputDecoration(
               hintText: 'Name',
               border: OutlineInputBorder(
@@ -52,8 +71,8 @@ class _RecipedetailsState extends State<Recipedetails> {
               IconButton(
                   onPressed: () {
                     setState(() {
-                      listcontroller.add(TextEditingController());
-                      quantitycontroller.add(TextEditingController());
+                      widget.listcontroller.add(TextEditingController());
+                      widget.quantitycontroller.add(TextEditingController());
                     });
                   },
                   icon: const Icon(Icons.add))
@@ -62,7 +81,7 @@ class _RecipedetailsState extends State<Recipedetails> {
           ListView.builder(
             physics: const NeverScrollableScrollPhysics(),
             shrinkWrap: true,
-            itemCount: listcontroller.length,
+            itemCount: widget.listcontroller.length,
             itemBuilder: (context, index) {
               return Padding(
                 padding: const EdgeInsets.only(top: 5),
@@ -81,10 +100,13 @@ class _RecipedetailsState extends State<Recipedetails> {
                             SizedBox(
                               width: 220,
                               child: TextFormField(
+                                validator: (value) {
+                                  return recipeingridientsvalidation(value);
+                                },
                                 decoration: const InputDecoration(
                                     hintText: 'Item',
                                     border: OutlineInputBorder()),
-                                controller: listcontroller[index],
+                                controller: widget.listcontroller[index],
                                 autofocus: false,
                               ),
                             ),
@@ -99,15 +121,18 @@ class _RecipedetailsState extends State<Recipedetails> {
                             crossAxisAlignment: CrossAxisAlignment.center,
                             children: [
                               Text(
-                                'Qty',
+                                '',
                                 style: GoogleFonts.poppins(
                                     color: const Color(primary)),
                               ),
                               TextFormField(
+                                validator: (value) {
+                                  return recipeQtyvalidation(value);
+                                },
                                 decoration: const InputDecoration(
                                     hintText: 'Qty',
                                     border: OutlineInputBorder()),
-                                controller: quantitycontroller[index],
+                                controller: widget.quantitycontroller[index],
                                 autofocus: false,
                               ),
                             ],
@@ -126,12 +151,12 @@ class _RecipedetailsState extends State<Recipedetails> {
                         InkWell(
                           onTap: () {
                             setState(() {
-                              quantitycontroller[index].clear();
-                              quantitycontroller[index].dispose();
-                              quantitycontroller.removeAt(index);
-                              listcontroller[index].clear();
-                              listcontroller[index].dispose();
-                              listcontroller.removeAt(index);
+                              widget.quantitycontroller[index].clear();
+                              widget.quantitycontroller[index].dispose();
+                              widget.quantitycontroller.removeAt(index);
+                              widget.listcontroller[index].clear();
+                              widget.listcontroller[index].dispose();
+                              widget.listcontroller.removeAt(index);
                             });
                           },
                           child: const Icon(
@@ -161,7 +186,7 @@ class _RecipedetailsState extends State<Recipedetails> {
               IconButton(
                   onPressed: () {
                     setState(() {
-                      directioncontroller.add(TextEditingController());
+                      widget.directioncontroller.add(TextEditingController());
                     });
                   },
                   icon: const Icon(Icons.add))
@@ -170,7 +195,7 @@ class _RecipedetailsState extends State<Recipedetails> {
           ListView.builder(
             physics: const NeverScrollableScrollPhysics(),
             shrinkWrap: true,
-            itemCount: directioncontroller.length,
+            itemCount: widget.directioncontroller.length,
             itemBuilder: (context, index) {
               return Padding(
                 padding: const EdgeInsets.only(top: 5),
@@ -189,10 +214,13 @@ class _RecipedetailsState extends State<Recipedetails> {
                             SizedBox(
                               width: 320,
                               child: TextFormField(
+                                validator: (value) {
+                                  return recipdirectionvalidation(value, index);
+                                },
                                 decoration: InputDecoration(
                                     hintText: 'Step ${index + 1}',
                                     border: const OutlineInputBorder()),
-                                controller: directioncontroller[index],
+                                controller: widget.directioncontroller[index],
                                 autofocus: false,
                               ),
                             ),
@@ -214,9 +242,9 @@ class _RecipedetailsState extends State<Recipedetails> {
                         InkWell(
                           onTap: () {
                             setState(() {
-                              directioncontroller[index].clear();
-                              directioncontroller[index].dispose();
-                              directioncontroller.removeAt(index);
+                              widget.directioncontroller[index].clear();
+                              widget.directioncontroller[index].dispose();
+                              widget.directioncontroller.removeAt(index);
                             });
                           },
                           child: const Icon(
@@ -226,7 +254,7 @@ class _RecipedetailsState extends State<Recipedetails> {
                           ),
                         ),
                       ],
-                    )
+                    ),
                     //: const SizedBox()
                   ],
                 ),
