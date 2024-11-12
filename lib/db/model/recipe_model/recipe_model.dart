@@ -17,8 +17,11 @@ class RecipeModel extends HiveObject {
   final List<String> qty;
   @HiveField(5)
   final List<String> direction;
+  @HiveField(6)
+  final int? categoryId;
   RecipeModel(
       {this.id,
+      required this.categoryId,
       required this.recipePic,
       required this.name,
       required this.ingridients,

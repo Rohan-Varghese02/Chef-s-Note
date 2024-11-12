@@ -1,18 +1,24 @@
 import 'package:cook_book/const/colors.dart';
+import 'package:cook_book/db/model/custom_cat_model.dart';
 import 'package:cook_book/screen/mainscreen/Pages/createpagewidget/functions/recfunc.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 // import 'package:hive_flutter/hive_flutter.dart';
 
 class Recipedetails extends StatefulWidget {
+  int? selectedCategoryId;
   GlobalKey<FormState> key_form;
   TextEditingController? name;
   List<TextEditingController> listcontroller = [TextEditingController()];
   List<TextEditingController> quantitycontroller = [TextEditingController()];
   List<TextEditingController> directioncontroller = [TextEditingController()];
+  final Function(int?) onCategpryChanged;
 
   Recipedetails(
       {super.key,
+      required this.selectedCategoryId,
+      required this.onCategpryChanged,
       required this.name,
       required this.key_form,
       required this.listcontroller,
@@ -24,13 +30,9 @@ class Recipedetails extends StatefulWidget {
 }
 
 class _RecipedetailsState extends State<Recipedetails> {
-  //final key_form = GlobalKey<FormState>();
-  // List<TextEditingController> listcontroller = [TextEditingController()];
-  // List<TextEditingController> quantitycontroller = [TextEditingController()];
-  // List<TextEditingController> directioncontroller = [TextEditingController()];
-
   @override
   Widget build(BuildContext context) {
+    final categoryBox = Hive.box<CustomCatModel>('catBox');
     return Form(
       key: widget.key_form,
       child: Column(
@@ -261,6 +263,18 @@ class _RecipedetailsState extends State<Recipedetails> {
               );
             },
           ),
+          DropdownButtonFormField<int>(
+            value: widget.selectedCategoryId,
+            hint: Text('Select Category'),
+            items: categoryBox.values.map((category) {
+              return DropdownMenuItem<int>(
+                  value: category.id as int, child: Text(category.title));
+            }).toList(),
+            onChanged: (int? newValue) {
+              widget.onCategpryChanged(newValue);
+            },
+            decoration: InputDecoration(labelText: 'Category'),
+          )
         ],
       ),
     );

@@ -31,6 +31,7 @@ Future<void> deleteRecipe(int? id) async {
 
 void storeRecipe(
     {required Uint8List? pic,
+    required int? categoryId,
     required TextEditingController name,
     required List<TextEditingController> listcontroller,
     required List<TextEditingController> quantitycontroller,
@@ -44,11 +45,13 @@ void storeRecipe(
   print(quantity);
   print(ingredient);
   print(direction);
+  print(categoryId);
   final recipe = RecipeModel(
       recipePic: pic,
       name: name.text.trim(),
       ingridients: ingredient,
       qty: quantity,
-      direction: direction);
+      direction: direction,
+      categoryId: categoryId);
   addRecipe(recipe);
 }

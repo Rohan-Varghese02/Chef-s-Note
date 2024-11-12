@@ -18,7 +18,8 @@ class RecipeModelAdapter extends TypeAdapter<RecipeModel> {
     };
     return RecipeModel(
       id: fields[0] as int?,
-      recipePic: fields[1] as Uint8List,
+      categoryId: fields[6] as int?,
+      recipePic: fields[1] as Uint8List?,
       name: fields[2] as String,
       ingridients: (fields[3] as List).cast<String>(),
       qty: (fields[4] as List).cast<String>(),
@@ -29,7 +30,7 @@ class RecipeModelAdapter extends TypeAdapter<RecipeModel> {
   @override
   void write(BinaryWriter writer, RecipeModel obj) {
     writer
-      ..writeByte(6)
+      ..writeByte(7)
       ..writeByte(0)
       ..write(obj.id)
       ..writeByte(1)
@@ -41,7 +42,9 @@ class RecipeModelAdapter extends TypeAdapter<RecipeModel> {
       ..writeByte(4)
       ..write(obj.qty)
       ..writeByte(5)
-      ..write(obj.direction);
+      ..write(obj.direction)
+      ..writeByte(6)
+      ..write(obj.categoryId);
   }
 
   @override

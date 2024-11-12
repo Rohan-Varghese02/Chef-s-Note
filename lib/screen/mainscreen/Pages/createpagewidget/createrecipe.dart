@@ -17,16 +17,24 @@ class Createrecipe extends StatefulWidget {
 }
 
 class _CreaterecipeState extends State<Createrecipe> {
+  int? categoryId;
   final name = TextEditingController();
   List<TextEditingController> listcontroller = [TextEditingController()];
   List<TextEditingController> quantitycontroller = [TextEditingController()];
   List<TextEditingController> directioncontroller = [TextEditingController()];
   final formKey = GlobalKey<FormState>();
+
   Uint8List? _image;
   void selectImage() async {
     Uint8List img = await pickImage(ImageSource.gallery);
     setState(() {
       _image = img;
+    });
+  }
+
+  void updateSelectedCategory(int? newCategoryId) {
+    setState(() {
+      categoryId = newCategoryId;
     });
   }
 
@@ -53,6 +61,8 @@ class _CreaterecipeState extends State<Createrecipe> {
                 listcontroller: listcontroller,
                 quantitycontroller: quantitycontroller,
                 name: name,
+                selectedCategoryId: categoryId,
+                onCategpryChanged: updateSelectedCategory,
               ),
               const SizedBox(
                 height: 10,
@@ -84,7 +94,9 @@ class _CreaterecipeState extends State<Createrecipe> {
                               name: name,
                               listcontroller: listcontroller,
                               quantitycontroller: quantitycontroller,
-                              directioncontroller: directioncontroller);
+                              directioncontroller: directioncontroller,
+                              categoryId: categoryId);
+                          print(categoryId);
                           Navigator.of(context).pop();
                         }
                       }
