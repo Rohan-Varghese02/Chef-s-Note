@@ -3,6 +3,7 @@ import 'dart:typed_data';
 import 'package:cook_book/const/colors.dart';
 import 'package:cook_book/db/model/user_model.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:hive/hive.dart';
 
 class Userpage extends StatefulWidget {
@@ -40,10 +41,12 @@ class _UserpageState extends State<Userpage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text(
+        title: Text(
           "User Profile",
-          style: TextStyle(
-              color: Color(primary), fontWeight: FontWeight.bold, fontSize: 30),
+          style: GoogleFonts.poppins(
+              color: const Color(primary),
+              fontWeight: FontWeight.bold,
+              fontSize: 24),
         ),
         centerTitle: true,
       ),

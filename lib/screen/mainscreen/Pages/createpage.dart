@@ -15,11 +15,13 @@ class Createpage extends StatelessWidget {
     getRecipes();
     return Scaffold(
       appBar: AppBar(
-        title: Text('Create Your Recpies',
-            style: GoogleFonts.poppins(
-                color: const Color(primary),
-                fontWeight: FontWeight.bold,
-                fontSize: 30)),
+        title: Text(
+          'Create Your Recpies',
+          style: GoogleFonts.poppins(
+              color: const Color(primary),
+              fontWeight: FontWeight.bold,
+              fontSize: 24),
+        ),
         centerTitle: true,
       ),
       floatingActionButton: FloatingActionButton(
@@ -33,7 +35,7 @@ class Createpage extends StatelessWidget {
           color: Colors.white,
         ),
       ),
-      body: Recipedis(),
+      body: const Recipedis(),
     );
   }
 }

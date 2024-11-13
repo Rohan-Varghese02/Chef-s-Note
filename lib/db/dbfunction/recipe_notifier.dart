@@ -9,8 +9,10 @@ Future<void> addRecipe(RecipeModel value) async {
   final recipeDB = await Hive.openBox<RecipeModel>('recipeBox');
   final _id = await recipeDB.add(value);
   value.id = _id;
+  value.isFav = false;
   await recipeDB.put(_id, value);
   print('Sucessful');
+  print(value.isFav);
   recipeListNotifier.value.add(value);
   recipeListNotifier.notifyListeners();
 }
@@ -54,4 +56,22 @@ void storeRecipe(
       direction: direction,
       categoryId: categoryId);
   addRecipe(recipe);
+}
+
+Future<void> favoriteRec(int? key, bool? isFavor) async {
+  // Open the Hive box for RecipeModel objects
+  final recipeDB = await Hive.openBox<RecipeModel>('recipeBox');
+
+  // Retrieve the existing RecipeModel object by key
+  RecipeModel? recipe = recipeDB.get(key);
+
+  // Check if the recipe exists
+  if (recipe != null) {
+    // Update the isFav property
+    recipe.isFav = isFavor;
+
+    // Save the modified recipe back to the box with the same key
+    await recipeDB.put(key, recipe);
+    getRecipes();
+  }
 }

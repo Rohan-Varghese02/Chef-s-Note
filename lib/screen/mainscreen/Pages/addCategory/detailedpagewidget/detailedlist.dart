@@ -3,6 +3,7 @@ import 'dart:typed_data';
 import 'package:cook_book/const/colors.dart';
 import 'package:cook_book/db/dbfunction/recipe_notifier.dart';
 import 'package:cook_book/db/model/recipe_model/recipe_model.dart';
+import 'package:cook_book/screen/recipescreen/recipescreen.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -21,35 +22,41 @@ class Detailedlist extends StatelessWidget {
           itemBuilder: (ctx, index) {
             final data = filteredRecipeList[index];
             Uint8List pic = data.recipePic ?? Uint8List(0);
-            return Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Container(
-                height: 90,
-                decoration: BoxDecoration(
-                    border: Border.all(color: const Color(primary)),
-                    borderRadius: BorderRadius.circular(15)),
-                child: Center(
-                  child: ListTile(
-                    title: Text(
-                      data.name,
-                      style: GoogleFonts.poppins(
-                          color: const Color(primary),
-                          fontWeight: FontWeight.w700,
-                          fontSize: 20),
+            return InkWell(
+              onTap: () {
+                Navigator.of(context).push(MaterialPageRoute(
+                    builder: (ctx) => Recipescreen(data: data)));
+              },
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Container(
+                  height: 90,
+                  decoration: BoxDecoration(
+                      border: Border.all(color: const Color(primary)),
+                      borderRadius: BorderRadius.circular(15)),
+                  child: Center(
+                    child: ListTile(
+                      title: Text(
+                        data.name,
+                        style: GoogleFonts.poppins(
+                            color: const Color(primary),
+                            fontWeight: FontWeight.w700,
+                            fontSize: 20),
+                      ),
+                      subtitle: Text(data.categoryId.toString()),
+                      leading: CircleAvatar(
+                        radius: 30,
+                        backgroundImage: MemoryImage(pic),
+                      ),
+                      trailing: IconButton(
+                          onPressed: () {
+                            deleteRecipe(data.id);
+                          },
+                          icon: const Icon(
+                            Icons.delete,
+                            color: Colors.red,
+                          )),
                     ),
-                    subtitle: Text(data.categoryId.toString()),
-                    leading: CircleAvatar(
-                      radius: 30,
-                      backgroundImage: MemoryImage(pic),
-                    ),
-                    trailing: IconButton(
-                        onPressed: () {
-                          deleteRecipe(data.id);
-                        },
-                        icon: const Icon(
-                          Icons.delete,
-                          color: Colors.red,
-                        )),
                   ),
                 ),
               ),

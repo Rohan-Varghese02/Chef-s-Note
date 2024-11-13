@@ -19,6 +19,8 @@ class RecipeModel extends HiveObject {
   final List<String> direction;
   @HiveField(6)
   final int? categoryId;
+  @HiveField(7)
+  bool? isFav;
   RecipeModel(
       {this.id,
       required this.categoryId,
@@ -26,5 +28,6 @@ class RecipeModel extends HiveObject {
       required this.name,
       required this.ingridients,
       required this.qty,
-      required this.direction});
+      required this.direction,
+      this.isFav});
 }
