@@ -1,6 +1,6 @@
 import 'package:cook_book/const/colors.dart';
 import 'package:cook_book/db/dbfunction/category_notifier.dart';
-import 'package:cook_book/db/model/custom_cat_model.dart';
+import 'package:cook_book/db/model/custom_category/custom_cat_model.dart';
 import 'package:cook_book/screen/mainscreen/Pages/addCategory/detailedpage.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';

@@ -17,8 +17,11 @@ class Createrecipe extends StatefulWidget {
 }
 
 class _CreaterecipeState extends State<Createrecipe> {
+  String? difficulty;
   int? categoryId;
   final name = TextEditingController();
+  final time = TextEditingController();
+  final rating = TextEditingController();
   List<TextEditingController> listcontroller = [TextEditingController()];
   List<TextEditingController> quantitycontroller = [TextEditingController()];
   List<TextEditingController> directioncontroller = [TextEditingController()];
@@ -35,6 +38,12 @@ class _CreaterecipeState extends State<Createrecipe> {
   void updateSelectedCategory(int? newCategoryId) {
     setState(() {
       categoryId = newCategoryId;
+    });
+  }
+
+  void updateDifficulty(String? newDifficulty) {
+    setState(() {
+      difficulty = newDifficulty;
     });
   }
 
@@ -63,6 +72,9 @@ class _CreaterecipeState extends State<Createrecipe> {
                 name: name,
                 selectedCategoryId: categoryId,
                 onCategpryChanged: updateSelectedCategory,
+                time: time,
+                rating: rating,
+                onDifficultyChaged: updateDifficulty,
               ),
               const SizedBox(
                 height: 10,
@@ -88,14 +100,23 @@ class _CreaterecipeState extends State<Createrecipe> {
                           ScaffoldMessenger.of(context).showSnackBar(
                             const SnackBar(content: Text('Add Recipe Picture')),
                           );
+                          if (difficulty == null) {
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              const SnackBar(content: Text('Add Difficulty')),
+                            );
+                          }
                         } else {
                           storeRecipe(
-                              pic: _image,
-                              name: name,
-                              listcontroller: listcontroller,
-                              quantitycontroller: quantitycontroller,
-                              directioncontroller: directioncontroller,
-                              categoryId: categoryId);
+                            pic: _image,
+                            name: name,
+                            listcontroller: listcontroller,
+                            quantitycontroller: quantitycontroller,
+                            directioncontroller: directioncontroller,
+                            categoryId: categoryId,
+                            time: time,
+                            rating: rating,
+                            difficulty: difficulty,
+                          );
                           print(categoryId);
                           Navigator.of(context).pop();
                         }

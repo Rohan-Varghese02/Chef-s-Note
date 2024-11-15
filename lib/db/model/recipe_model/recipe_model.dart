@@ -21,11 +21,21 @@ class RecipeModel extends HiveObject {
   final int? categoryId;
   @HiveField(7)
   bool? isFav;
+  @HiveField(8)
+  final String time;
+  @HiveField(9)
+  final String rating;
+  @HiveField(10)
+  final String difficulty;
+
   RecipeModel(
       {this.id,
       required this.categoryId,
       required this.recipePic,
       required this.name,
+      required this.time,
+      required this.rating,
+      required this.difficulty,
       required this.ingridients,
       required this.qty,
       required this.direction,

@@ -78,9 +78,7 @@ class _RecipescreenState extends State<Recipescreen> {
               width: double.infinity,
               decoration: const BoxDecoration(
                 color: Colors.white,
-                borderRadius: BorderRadius.only(
-                    topLeft: Radius.circular(30),
-                    topRight: Radius.circular(30)),
+                borderRadius: BorderRadius.all(Radius.circular(30)),
               ),
               child: Padding(
                 padding: const EdgeInsets.all(8.0),
@@ -88,12 +86,37 @@ class _RecipescreenState extends State<Recipescreen> {
                   children: [
                     Padding(
                       padding: const EdgeInsets.all(16.0),
-                      child: Text(
-                        widget.data.name,
-                        style: GoogleFonts.poppins(
-                            color: const Color(primary),
-                            fontWeight: FontWeight.bold,
-                            fontSize: 30),
+                      child: Center(
+                        child: Column(
+                          children: [
+                            Text(
+                              widget.data.name,
+                              style: GoogleFonts.poppins(
+                                  color: const Color(primary),
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 30),
+                            ),
+                            RichText(
+                              text: TextSpan(
+                                style: const TextStyle(
+                                    color: Color(primary), fontSize: 18),
+                                children: [
+                                  TextSpan(
+                                      text:
+                                          '${widget.data.time}mins | ${widget.data.difficulty} |  '),
+                                  const WidgetSpan(
+                                    child: Icon(
+                                      Icons.star,
+                                      color: Color(primary),
+                                      size: 20,
+                                    ),
+                                  ),
+                                  TextSpan(text: widget.data.rating),
+                                ],
+                              ),
+                            ),
+                          ],
+                        ),
                       ),
                     ),
                     Column(
@@ -174,6 +197,14 @@ class _RecipescreenState extends State<Recipescreen> {
               ),
             )
           ],
+        ),
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {},
+        backgroundColor: const Color(primary),
+        child: const Icon(
+          Icons.shopify,
+          color: Colors.white,
         ),
       ),
     );

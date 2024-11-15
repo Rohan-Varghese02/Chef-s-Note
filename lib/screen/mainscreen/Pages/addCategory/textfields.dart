@@ -1,5 +1,5 @@
 import 'package:cook_book/const/colors.dart';
-import 'package:cook_book/db/model/custom_cat_model.dart';
+import 'package:cook_book/db/model/custom_category/custom_cat_model.dart';
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 

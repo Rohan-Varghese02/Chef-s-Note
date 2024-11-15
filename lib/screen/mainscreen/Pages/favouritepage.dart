@@ -54,19 +54,38 @@ class Favouritepage extends StatelessWidget {
                               fontWeight: FontWeight.w700,
                               fontSize: 20),
                         ),
-                        subtitle: Text(data.categoryId.toString()),
+                        subtitle: Row(
+                          children: [
+                            const Icon(Icons.star,
+                                size: 20, color: const Color(primary)),
+                            Text(
+                              data.rating,
+                              style: GoogleFonts.poppins(fontSize: 16),
+                            ),
+                            const SizedBox(
+                              width: 35,
+                            ),
+                            const Icon(Icons.shopify,
+                                size: 20, color: Color(primary)),
+                            Text(
+                              data.ingridients.length.toString(),
+                              style: GoogleFonts.poppins(fontSize: 16),
+                            ),
+                            const SizedBox(
+                              width: 35,
+                            ),
+                            const Icon(Icons.timer,
+                                size: 20, color: Color(primary)),
+                            Text(
+                              data.ingridients.length.toString(),
+                              style: GoogleFonts.poppins(fontSize: 16),
+                            ),
+                          ],
+                        ),
                         leading: CircleAvatar(
                           radius: 30,
                           backgroundImage: MemoryImage(pic),
                         ),
-                        trailing: IconButton(
-                            onPressed: () {
-                              deleteRecipe(data.id);
-                            },
-                            icon: const Icon(
-                              Icons.delete,
-                              color: Colors.red,
-                            )),
                       ),
                     ),
                   ),

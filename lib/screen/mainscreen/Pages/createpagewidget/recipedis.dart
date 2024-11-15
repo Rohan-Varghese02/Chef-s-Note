@@ -29,18 +29,45 @@ class Recipedis extends StatelessWidget {
                 child: Container(
                   height: 90,
                   decoration: BoxDecoration(
-                      border: Border.all(color: Color(primary)),
+                      border: Border.all(color: const Color(primary)),
                       borderRadius: BorderRadius.circular(15)),
                   child: Center(
                     child: ListTile(
                       title: Text(
                         data.name,
                         style: GoogleFonts.poppins(
-                            color: Color(primary),
+                            color: const Color(primary),
                             fontWeight: FontWeight.w700,
                             fontSize: 20),
                       ),
-                      subtitle: Text(data.categoryId.toString()),
+                      subtitle: Row(
+                        children: [
+                          const Icon(Icons.star,
+                              size: 20, color: const Color(primary)),
+                          Text(
+                            data.rating,
+                            style: GoogleFonts.poppins(fontSize: 16),
+                          ),
+                          const SizedBox(
+                            width: 35,
+                          ),
+                          const Icon(Icons.shopify,
+                              size: 20, color:  Color(primary)),
+                          Text(
+                            data.ingridients.length.toString(),
+                            style: GoogleFonts.poppins(fontSize: 16),
+                          ),
+                          const SizedBox(
+                            width: 35,
+                          ),
+                          const Icon(Icons.timer,
+                              size: 20, color:  Color(primary)),
+                          Text(
+                            data.ingridients.length.toString(),
+                            style: GoogleFonts.poppins(fontSize: 16),
+                          ),
+                        ],
+                      ),
                       leading: CircleAvatar(
                         radius: 30,
                         backgroundImage: MemoryImage(pic),
@@ -49,7 +76,7 @@ class Recipedis extends StatelessWidget {
                           onPressed: () {
                             deleteRecipe(data.id);
                           },
-                          icon: Icon(
+                          icon: const Icon(
                             Icons.delete,
                             color: Colors.red,
                           )),

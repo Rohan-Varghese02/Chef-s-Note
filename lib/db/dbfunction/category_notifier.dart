@@ -1,4 +1,4 @@
-import 'package:cook_book/db/model/custom_cat_model.dart';
+import 'package:cook_book/db/model/custom_category/custom_cat_model.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
 import 'package:hive_flutter/hive_flutter.dart';

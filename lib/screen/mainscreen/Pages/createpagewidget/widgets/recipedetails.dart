@@ -1,5 +1,5 @@
 import 'package:cook_book/const/colors.dart';
-import 'package:cook_book/db/model/custom_cat_model.dart';
+import 'package:cook_book/db/model/custom_category/custom_cat_model.dart';
 import 'package:cook_book/screen/mainscreen/Pages/createpagewidget/functions/recfunc.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -10,26 +10,43 @@ class Recipedetails extends StatefulWidget {
   int? selectedCategoryId;
   GlobalKey<FormState> key_form;
   TextEditingController? name;
+  TextEditingController time = TextEditingController();
+  TextEditingController rating = TextEditingController();
   List<TextEditingController> listcontroller = [TextEditingController()];
   List<TextEditingController> quantitycontroller = [TextEditingController()];
   List<TextEditingController> directioncontroller = [TextEditingController()];
   final Function(int?) onCategpryChanged;
+  final Function(String?) onDifficultyChaged;
 
-  Recipedetails(
-      {super.key,
-      required this.selectedCategoryId,
-      required this.onCategpryChanged,
-      required this.name,
-      required this.key_form,
-      required this.listcontroller,
-      required this.quantitycontroller,
-      required this.directioncontroller});
+  Recipedetails({
+    super.key,
+    required this.selectedCategoryId,
+    required this.onCategpryChanged,
+    required this.name,
+    required this.time,
+    required this.rating,
+    required this.key_form,
+    required this.listcontroller,
+    required this.quantitycontroller,
+    required this.directioncontroller,
+    required this.onDifficultyChaged,
+  });
 
   @override
   State<Recipedetails> createState() => _RecipedetailsState();
 }
 
 class _RecipedetailsState extends State<Recipedetails> {
+  void onDifficultyChanged(String? newDifficulty) {
+    setState(() {
+      selectedDifficulty = newDifficulty; // Update the selected difficulty
+      widget.onDifficultyChaged(newDifficulty);
+    });
+  }
+
+  String? selectedDifficulty;
+  List<String> difficulty = ['Easy', 'Meduim', 'Hard'];
+
   @override
   Widget build(BuildContext context) {
     final categoryBox = Hive.box<CustomCatModel>('catBox');
@@ -38,6 +55,7 @@ class _RecipedetailsState extends State<Recipedetails> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
+          //Recipe Name
           Text(
             'Recipe Name:',
             style: GoogleFonts.poppins(
@@ -60,6 +78,94 @@ class _RecipedetailsState extends State<Recipedetails> {
           const SizedBox(
             height: 10,
           ),
+          //Time Required_______________________Start
+          Row(
+            children: [
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    'Time req(min):',
+                    style: GoogleFonts.poppins(
+                        color: const Color(primary),
+                        fontSize: 18,
+                        fontWeight: FontWeight.w500),
+                  ),
+                  SizedBox(
+                    width: 180,
+                    child: TextFormField(
+                      controller: widget.time,
+                      keyboardType: TextInputType.number,
+                      validator: (value) {
+                        return recipeTimeValidation(value);
+                      },
+                      decoration: const InputDecoration(
+                        hintText: 'Time',
+                        border: OutlineInputBorder(
+                          borderSide: BorderSide(),
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+              const SizedBox(
+                width: 10,
+              ),
+              //Rating Required_______________________Start
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    'Ratings(Out of 5):',
+                    style: GoogleFonts.poppins(
+                        color: const Color(primary),
+                        fontSize: 18,
+                        fontWeight: FontWeight.w500),
+                  ),
+                  SizedBox(
+                    width: 180,
+                    child: TextFormField(
+                      controller: widget.rating,
+                      keyboardType: TextInputType.number,
+                      validator: (value) {
+                        return recipeRatingValidation(value);
+                      },
+                      decoration: const InputDecoration(
+                        hintText: 'Ratings',
+                        border: OutlineInputBorder(
+                          borderSide: BorderSide(),
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ],
+          ),
+          const SizedBox(
+            height: 10,
+          ),
+          // Drop Down menu
+          Row(
+            children: [
+              const SizedBox(
+                width: 6,
+              ),
+              DropdownButton<String>(
+                value: selectedDifficulty,
+                items: difficulty.map((String difficulty) {
+                  return DropdownMenuItem<String>(
+                    value: difficulty,
+                    child: Text(difficulty),
+                  );
+                }).toList(),
+                onChanged: onDifficultyChanged,
+                hint: const Text("Select Difficulty"),
+              ),
+            ],
+          ),
+
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [

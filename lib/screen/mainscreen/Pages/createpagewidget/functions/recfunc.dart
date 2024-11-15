@@ -29,3 +29,29 @@ String? recipeNameValidation(String? value) {
     return null;
   }
 }
+
+String? recipeTimeValidation(String? value) {
+  if (value == null || value.isEmpty) {
+    return 'Please enter a number';
+  }
+  // Try to parse the input as an integer
+  final int? number = int.tryParse(value);
+  if (number == null) {
+    return 'Please enter a valid time';
+  }
+  return null; // Input is valid
+}
+
+String? recipeRatingValidation(String? value) {
+  if (value == null || value.isEmpty) {
+    return 'Please enter a number';
+  }
+  // Try to parse the input as an integer
+  final double? number = double.tryParse(value);
+  if (number == null) {
+    return 'Please enter a valid rating';
+  } else if (number >= 5.00) {
+    return 'Rating must be less than 5';
+  }
+  return null; // Input is valid
+}

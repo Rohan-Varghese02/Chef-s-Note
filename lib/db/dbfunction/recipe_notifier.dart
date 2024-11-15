@@ -37,24 +37,33 @@ void storeRecipe(
     required TextEditingController name,
     required List<TextEditingController> listcontroller,
     required List<TextEditingController> quantitycontroller,
-    required List<TextEditingController> directioncontroller}) {
+    required List<TextEditingController> directioncontroller,
+    required TextEditingController time,
+    required TextEditingController rating,
+    required String? difficulty}) {
   final List<String> ingredient =
       listcontroller.map((controller) => controller.text).toList();
   final quantity =
       quantitycontroller.map((controller) => controller.text).toList();
   final direction =
       directioncontroller.map((controller) => controller.text).toList();
+  final timedata = time.text.trim();
+  final ratingdata = rating.text.trim();
   print(quantity);
   print(ingredient);
   print(direction);
   print(categoryId);
   final recipe = RecipeModel(
-      recipePic: pic,
-      name: name.text.trim(),
-      ingridients: ingredient,
-      qty: quantity,
-      direction: direction,
-      categoryId: categoryId);
+    recipePic: pic,
+    name: name.text.trim(),
+    ingridients: ingredient,
+    qty: quantity,
+    direction: direction,
+    categoryId: categoryId,
+    time: timedata,
+    rating: ratingdata,
+    difficulty: difficulty!,
+  );
   addRecipe(recipe);
 }
 

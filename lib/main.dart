@@ -1,4 +1,4 @@
-import 'package:cook_book/db/model/custom_cat_model.dart';
+import 'package:cook_book/db/model/custom_category/custom_cat_model.dart';
 import 'package:cook_book/db/model/recipe_model/recipe_model.dart';
 import 'package:cook_book/db/model/user_model.dart';
 import 'package:cook_book/screen/splashscreen/splashscreen.dart';
