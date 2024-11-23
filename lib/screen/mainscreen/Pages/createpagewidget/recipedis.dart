@@ -7,11 +7,18 @@ import 'package:cook_book/screen/recipescreen/recipescreen.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-class Recipedis extends StatelessWidget {
+class Recipedis extends StatefulWidget {
   const Recipedis({super.key});
 
   @override
+  State<Recipedis> createState() => _RecipedisState();
+}
+
+class _RecipedisState extends State<Recipedis> {
+  @override
   Widget build(BuildContext context) {
+    bool? isFavorites = true;
+
     return ValueListenableBuilder(
       valueListenable: recipeListNotifier,
       builder: (BuildContext ctx, List<RecipeModel> recipeList, Widget? child) {
@@ -73,6 +80,7 @@ class Recipedis extends StatelessWidget {
         return ListView.separated(
           itemBuilder: (ctx, index) {
             final data = recipeList[index];
+            isFavorites = data.isFav;
             Uint8List pic = data.recipePic ?? Uint8List(0);
             return Padding(
               padding: const EdgeInsets.all(8.0),
@@ -98,7 +106,7 @@ class Recipedis extends StatelessWidget {
                       subtitle: Row(
                         children: [
                           const Icon(Icons.star,
-                              size: 20, color: const Color(primary)),
+                              size: 20, color: Color(primary)),
                           Text(
                             data.rating,
                             style: GoogleFonts.poppins(fontSize: 16),
@@ -128,7 +136,20 @@ class Recipedis extends StatelessWidget {
                         backgroundImage: MemoryImage(pic),
                       ),
                       trailing: Row(
+                        mainAxisSize: MainAxisSize.min,
                         children: [
+                          IconButton(
+                              onPressed: () {
+                                toggleFavorite(id: data.id, index: index);
+                              },
+                              icon: Icon(
+                                isFavorites!
+                                    ? Icons.favorite
+                                    : Icons.favorite_border,
+                                color: isFavorites!
+                                    ? Colors.red
+                                    : const Color(primary),
+                              )),
                           IconButton(
                               onPressed: () {
                                 showDialog(
@@ -145,8 +166,8 @@ class Recipedis extends StatelessWidget {
                                         ),
                                         content: Text(
                                           'Do you really wish to permenantly delete ${data.name}',
-                                          style:
-                                              const TextStyle(color: Colors.white),
+                                          style: const TextStyle(
+                                              color: Colors.white),
                                         ),
                                         actions: [
                                           ElevatedButton(
@@ -155,7 +176,8 @@ class Recipedis extends StatelessWidget {
                                               },
                                               child: const Text(
                                                 'Cancel',
-                                                style: TextStyle(color: Colors.red),
+                                                style: TextStyle(
+                                                    color: Colors.red),
                                               )),
                                           ElevatedButton(
                                             onPressed: () {
@@ -167,11 +189,12 @@ class Recipedis extends StatelessWidget {
                                                 Navigator.of(context).pop();
                                               }
                                             },
-                                            child: Text('Yes',
+                                            style: ElevatedButton.styleFrom(
+                                                backgroundColor:
+                                                    const Color(0xff03E079)),
+                                            child: const Text('Yes',
                                                 style: TextStyle(
                                                     color: Color(primary))),
-                                            style: ElevatedButton.styleFrom(
-                                                backgroundColor: Color(0xff03E079)),
                                           )
                                         ],
                                       );
@@ -180,8 +203,7 @@ class Recipedis extends StatelessWidget {
                               icon: const Icon(
                                 Icons.delete,
                                 color: Colors.red,
-                              )
-                              ),
+                              )),
                         ],
                       ),
                     ),
@@ -197,5 +219,15 @@ class Recipedis extends StatelessWidget {
         );
       },
     );
+  }
+
+  Future<void> toggleFavorite({required int? id, required int index}) async {
+    // Toggle the isFav state of the specific recipe in recipeListNotifier
+    recipeListNotifier.value[index].isFav =
+        !recipeListNotifier.value[index].isFav!;
+    recipeListNotifier
+        .notifyListeners(); // Notify the listeners about the update
+    favoriteRec(
+        id, recipeListNotifier.value[index].isFav); // Update in the database
   }
 }

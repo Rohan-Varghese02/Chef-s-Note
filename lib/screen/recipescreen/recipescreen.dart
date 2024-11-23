@@ -3,7 +3,7 @@ import 'dart:typed_data';
 import 'package:cook_book/const/colors.dart';
 import 'package:cook_book/db/dbfunction/recipe_notifier.dart';
 import 'package:cook_book/db/model/recipe_model/recipe_model.dart';
-import 'package:cook_book/screen/recipescreen/ingredientscreen.dart';
+import 'package:cook_book/screen/mainscreen/Pages/userpagewidget/shoppingPage/shoppinglist.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -29,7 +29,7 @@ class _RecipescreenState extends State<Recipescreen> {
       isFavorites = !isFavorites!;
       // print('worked');
       // print(isFavorites);
-      widget.data.isFav = isFavorites; // Update the widget data for consistency
+      // widget.data.isFav = isFavorites; // Update the widget data for consistency
     });
     favoriteRec(widget.data.id, isFavorites);
   }
@@ -200,10 +200,8 @@ class _RecipescreenState extends State<Recipescreen> {
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          showDialog(
-            context: context,
-            builder: (context) => const Ingredientscreen(),
-          );
+          Navigator.of(context)
+              .push(MaterialPageRoute(builder: (ctx) => const Shoppinglist()));
         },
         backgroundColor: const Color(primary),
         child: const Icon(
