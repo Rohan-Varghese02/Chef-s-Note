@@ -17,7 +17,7 @@ class Recipedis extends StatefulWidget {
 class _RecipedisState extends State<Recipedis> {
   @override
   Widget build(BuildContext context) {
-    bool? isFavorites = true;
+    bool? isFavorites;
 
     return ValueListenableBuilder(
       valueListenable: recipeListNotifier,

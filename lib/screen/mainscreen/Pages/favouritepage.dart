@@ -12,6 +12,7 @@ class Favouritepage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    bool? isFavorites = true;
     return Scaffold(
       appBar: AppBar(
         title: Text(
@@ -116,6 +117,18 @@ class Favouritepage extends StatelessWidget {
                             ),
                           ],
                         ),
+                        trailing: IconButton(
+                            onPressed: () {
+                              toggleFavorite(id: data.id, index: index);
+                            },
+                            icon: Icon(
+                              isFavorites!
+                                  ? Icons.favorite
+                                  : Icons.favorite_border,
+                              color: isFavorites!
+                                  ? Colors.red
+                                  : const Color(primary),
+                            )),
                         leading: CircleAvatar(
                           radius: 30,
                           backgroundImage: MemoryImage(pic),
@@ -134,5 +147,15 @@ class Favouritepage extends StatelessWidget {
         },
       ),
     );
+  }
+
+  Future<void> toggleFavorite({required int? id, required int index}) async {
+    // Toggle the isFav state of the specific recipe in recipeListNotifier
+    recipeListNotifier.value[index].isFav =
+        !recipeListNotifier.value[index].isFav!;
+    recipeListNotifier
+        .notifyListeners(); // Notify the listeners about the update
+    favoriteRec(
+        id, recipeListNotifier.value[index].isFav); // Update in the database
   }
 }
