@@ -15,6 +15,61 @@ class Recipedis extends StatelessWidget {
     return ValueListenableBuilder(
       valueListenable: recipeListNotifier,
       builder: (BuildContext ctx, List<RecipeModel> recipeList, Widget? child) {
+        if (recipeList.isEmpty) {
+          return Center(
+            child: Column(
+              children: [
+                const Image(
+                  image: NetworkImage(
+                    'https://img.freepik.com/premium-photo/girl-cooking-with-chef-hat-sign-that-says-create-your-own_750792-65191.jpg',
+                  ),
+                ),
+                Align(
+                  alignment: Alignment.center,
+                  child: Column(
+                    children: [
+                      Text(
+                        '“A recipe has no',
+                        style: GoogleFonts.poppins(
+                          fontSize: 29,
+                          color: const Color(primary),
+                        ),
+                      ),
+                      Text(
+                        'soul. You as the',
+                        style: GoogleFonts.poppins(
+                          fontSize: 29,
+                          color: const Color(primary),
+                        ),
+                      ),
+                      Text(
+                        'cook must bring',
+                        style: GoogleFonts.poppins(
+                          fontSize: 29,
+                          color: const Color(primary),
+                        ),
+                      ),
+                      Text(
+                        ' soul to the recipe',
+                        style: GoogleFonts.poppins(
+                          fontSize: 29,
+                          color: const Color(primary),
+                        ),
+                      ),
+                      Text(
+                        ' – Thomas Keller',
+                        style: GoogleFonts.poppins(
+                          fontSize: 19,
+                          color: const Color(primary),
+                        ),
+                      ),
+                    ],
+                  ),
+                )
+              ],
+            ),
+          );
+        }
         return ListView.separated(
           itemBuilder: (ctx, index) {
             final data = recipeList[index];
@@ -52,7 +107,7 @@ class Recipedis extends StatelessWidget {
                             width: 35,
                           ),
                           const Icon(Icons.shopify,
-                              size: 20, color:  Color(primary)),
+                              size: 20, color: Color(primary)),
                           Text(
                             data.ingridients.length.toString(),
                             style: GoogleFonts.poppins(fontSize: 16),
@@ -61,7 +116,7 @@ class Recipedis extends StatelessWidget {
                             width: 35,
                           ),
                           const Icon(Icons.timer,
-                              size: 20, color:  Color(primary)),
+                              size: 20, color: Color(primary)),
                           Text(
                             data.ingridients.length.toString(),
                             style: GoogleFonts.poppins(fontSize: 16),
@@ -72,14 +127,63 @@ class Recipedis extends StatelessWidget {
                         radius: 30,
                         backgroundImage: MemoryImage(pic),
                       ),
-                      trailing: IconButton(
-                          onPressed: () {
-                            deleteRecipe(data.id);
-                          },
-                          icon: const Icon(
-                            Icons.delete,
-                            color: Colors.red,
-                          )),
+                      trailing: Row(
+                        children: [
+                          IconButton(
+                              onPressed: () {
+                                showDialog(
+                                    context: context,
+                                    builder: (ctx) {
+                                      return AlertDialog(
+                                        backgroundColor: const Color(primary),
+                                        title: const Text(
+                                          'Delete',
+                                          style: TextStyle(
+                                              color: Colors.white,
+                                              fontSize: 30,
+                                              fontWeight: FontWeight.bold),
+                                        ),
+                                        content: Text(
+                                          'Do you really wish to permenantly delete ${data.name}',
+                                          style:
+                                              const TextStyle(color: Colors.white),
+                                        ),
+                                        actions: [
+                                          ElevatedButton(
+                                              onPressed: () {
+                                                Navigator.of(context).pop();
+                                              },
+                                              child: const Text(
+                                                'Cancel',
+                                                style: TextStyle(color: Colors.red),
+                                              )),
+                                          ElevatedButton(
+                                            onPressed: () {
+                                              if (data.id != null) {
+                                                deleteRecipe(data.id);
+                                                Navigator.of(context).pop();
+                                              } else {
+                                                print('No such Student ID');
+                                                Navigator.of(context).pop();
+                                              }
+                                            },
+                                            child: Text('Yes',
+                                                style: TextStyle(
+                                                    color: Color(primary))),
+                                            style: ElevatedButton.styleFrom(
+                                                backgroundColor: Color(0xff03E079)),
+                                          )
+                                        ],
+                                      );
+                                    });
+                              },
+                              icon: const Icon(
+                                Icons.delete,
+                                color: Colors.red,
+                              )
+                              ),
+                        ],
+                      ),
                     ),
                   ),
                 ),

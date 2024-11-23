@@ -1,43 +1,14 @@
-import 'dart:typed_data';
-
 import 'package:cook_book/const/colors.dart';
-import 'package:cook_book/db/dbfunction/recipe_notifier.dart';
-import 'package:cook_book/db/model/recipe_model/recipe_model.dart';
-import 'package:cook_book/screen/recipescreen/ingredientscreen.dart';
+import 'package:cook_book/db/model/data_model/meal.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-class Recipescreen extends StatefulWidget {
-  final RecipeModel data;
-  const Recipescreen({super.key, required this.data});
-
-  @override
-  State<Recipescreen> createState() => _RecipescreenState();
-}
-
-class _RecipescreenState extends State<Recipescreen> {
-  bool? isFavorites;
-
-  void initState() {
-    super.initState();
-    // Initialize isFavorites with the value from widget.data.isFav
-    isFavorites = widget.data.isFav ?? false;
-  }
-
-  Future<void> toggleFavorite() async {
-    setState(() {
-      isFavorites = !isFavorites!;
-      // print('worked');
-      // print(isFavorites);
-      widget.data.isFav = isFavorites; // Update the widget data for consistency
-    });
-    favoriteRec(widget.data.id, isFavorites);
-  }
+class Recipestatic extends StatelessWidget {
+  Meal mealinfo;
+  Recipestatic({super.key, required this.mealinfo});
 
   @override
   Widget build(BuildContext context) {
-    //bool? isFavorites = widget.data.isFav;
-    Uint8List pic = widget.data.recipePic ?? Uint8List(0);
     return Scaffold(
       appBar: AppBar(
         leading: IconButton(
@@ -50,18 +21,7 @@ class _RecipescreenState extends State<Recipescreen> {
             )),
         backgroundColor: const Color(primary),
         centerTitle: true,
-        actions: [
-          IconButton(
-              onPressed: () {
-                toggleFavorite();
-              },
-              icon: Icon(
-                isFavorites! ? Icons.favorite : Icons.favorite_border,
-                color: isFavorites! ? Colors.red : Colors.white,
-              ))
-        ],
       ),
-      backgroundColor: const Color(primary),
       body: SingleChildScrollView(
         child: Column(
           children: [
@@ -69,8 +29,8 @@ class _RecipescreenState extends State<Recipescreen> {
               width: double.infinity,
               height: 400,
               decoration: BoxDecoration(
-                image:
-                    DecorationImage(image: MemoryImage(pic), fit: BoxFit.cover),
+                image: DecorationImage(
+                    image: NetworkImage(mealinfo.imageUrl), fit: BoxFit.cover),
               ),
             ),
             Container(
@@ -89,7 +49,7 @@ class _RecipescreenState extends State<Recipescreen> {
                         child: Column(
                           children: [
                             Text(
-                              widget.data.name,
+                              mealinfo.title,
                               style: GoogleFonts.poppins(
                                   color: const Color(primary),
                                   fontWeight: FontWeight.bold,
@@ -102,7 +62,7 @@ class _RecipescreenState extends State<Recipescreen> {
                                 children: [
                                   TextSpan(
                                       text:
-                                          '${widget.data.time}mins | ${widget.data.difficulty} |  '),
+                                          '${mealinfo.duration}mins | Easy |  '),
                                   const WidgetSpan(
                                     child: Icon(
                                       Icons.star,
@@ -110,7 +70,7 @@ class _RecipescreenState extends State<Recipescreen> {
                                       size: 20,
                                     ),
                                   ),
-                                  TextSpan(text: widget.data.rating),
+                                  TextSpan(text: mealinfo.rating),
                                 ],
                               ),
                             ),
@@ -123,7 +83,7 @@ class _RecipescreenState extends State<Recipescreen> {
                         Align(
                           alignment: Alignment.topLeft,
                           child: Text(
-                            'Ingredients(${widget.data.ingridients.length})',
+                            'Ingredients(${mealinfo.ingredients.length})',
                             style: GoogleFonts.poppins(
                                 color: Color(primary),
                                 fontSize: 20,
@@ -133,7 +93,7 @@ class _RecipescreenState extends State<Recipescreen> {
                         ListView.builder(
                           physics: NeverScrollableScrollPhysics(),
                           shrinkWrap: true,
-                          itemCount: widget.data.ingridients.length,
+                          itemCount: mealinfo.ingredients.length,
                           itemBuilder: (context, index) {
                             return ListTile(
                               title: Row(
@@ -141,16 +101,16 @@ class _RecipescreenState extends State<Recipescreen> {
                                     MainAxisAlignment.spaceBetween,
                                 children: [
                                   Text(
-                                    widget.data.ingridients[index],
+                                    mealinfo.ingredients[index],
                                     style: GoogleFonts.poppins(
                                         color: const Color(primary)),
                                   ),
-                                  Text(widget.data.qty[index],
+                                  Text(mealinfo.qty[index],
                                       style: GoogleFonts.poppins(
                                           color: const Color(primary))),
                                 ],
                               ),
-                              leading: const Icon(
+                              leading: Icon(
                                 Icons.circle,
                                 size: 20,
                                 color: Color(primary),
@@ -173,7 +133,7 @@ class _RecipescreenState extends State<Recipescreen> {
                         ListView.builder(
                           physics: NeverScrollableScrollPhysics(),
                           shrinkWrap: true,
-                          itemCount: widget.data.direction.length,
+                          itemCount: mealinfo.steps.length,
                           itemBuilder: (context, index) {
                             return ListTile(
                                 title: Column(
@@ -182,7 +142,7 @@ class _RecipescreenState extends State<Recipescreen> {
                                 Text('Step ${index + 1}',
                                     style: GoogleFonts.poppins(
                                         color: const Color(primary))),
-                                Text(widget.data.direction[index],
+                                Text(mealinfo.steps[index],
                                     style: GoogleFonts.poppins(
                                         color: const Color(primary)))
                               ],
@@ -194,21 +154,8 @@ class _RecipescreenState extends State<Recipescreen> {
                   ],
                 ),
               ),
-            )
+            ),
           ],
-        ),
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          showDialog(
-            context: context,
-            builder: (context) => const Ingredientscreen(),
-          );
-        },
-        backgroundColor: const Color(primary),
-        child: const Icon(
-          Icons.shopify,
-          color: Colors.white,
         ),
       ),
     );

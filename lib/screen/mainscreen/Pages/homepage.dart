@@ -4,6 +4,7 @@ import 'package:cook_book/screen/mainscreen/Pages/addCategory/addCategory.dart';
 import 'package:cook_book/screen/mainscreen/Pages/homepagewidget/categoryItem.dart';
 import 'package:cook_book/screen/mainscreen/Pages/homepagewidget/explore.dart';
 import 'package:cook_book/screen/mainscreen/Pages/homepagewidget/searchbar.dart';
+import 'package:cook_book/screen/recipescreen/recipeStatic.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -12,6 +13,8 @@ class Homepage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final filteredMeals =
+        dummyMeals.where((meal) => meal.categories.contains('rec')).toList();
     return Scaffold(
       body: SafeArea(
         child: SingleChildScrollView(
@@ -90,6 +93,77 @@ class Homepage extends StatelessWidget {
                     fontWeight: FontWeight.bold,
                   ),
                 ),
+                ListView.builder(
+                  physics: const NeverScrollableScrollPhysics(),
+                  shrinkWrap: true,
+                  itemBuilder: (ctx, index) {
+                    return Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: InkWell(
+                        onTap: () {
+                          Navigator.of(context).push(MaterialPageRoute(
+                              builder: (ctx) => Recipestatic(
+                                    mealinfo: filteredMeals[index],
+                                  )));
+                        },
+                        child: Container(
+                          decoration: BoxDecoration(
+                              border: Border.all(color: const Color(primary)),
+                              borderRadius: BorderRadius.circular(15)),
+                          height: 90,
+                          child: Center(
+                            child: ListTile(
+                              title: Text(
+                                filteredMeals[index].title,
+                                style: GoogleFonts.poppins(
+                                    color: const Color(primary),
+                                    fontWeight: FontWeight.w700,
+                                    fontSize: 18),
+                              ),
+                              leading: CircleAvatar(
+                                radius: 30,
+                                backgroundImage:
+                                    NetworkImage(filteredMeals[index].imageUrl),
+                              ),
+                              subtitle: Row(
+                                children: [
+                                  const Icon(Icons.star,
+                                      size: 20, color: Color(primary)),
+                                  Text(
+                                    filteredMeals[index].rating,
+                                    style: GoogleFonts.poppins(fontSize: 16),
+                                  ),
+                                  const SizedBox(
+                                    width: 35,
+                                  ),
+                                  const Icon(Icons.shopify,
+                                      size: 20, color: Color(primary)),
+                                  Text(
+                                    filteredMeals[index]
+                                        .ingredients
+                                        .length
+                                        .toString(),
+                                    style: GoogleFonts.poppins(fontSize: 16),
+                                  ),
+                                  const SizedBox(
+                                    width: 35,
+                                  ),
+                                  const Icon(Icons.timer,
+                                      size: 20, color: Color(primary)),
+                                  Text(
+                                    '${filteredMeals[index].duration.toString()}mins',
+                                    style: GoogleFonts.poppins(fontSize: 16),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                    );
+                  },
+                  itemCount: filteredMeals.length,
+                )
               ],
             ),
           ),

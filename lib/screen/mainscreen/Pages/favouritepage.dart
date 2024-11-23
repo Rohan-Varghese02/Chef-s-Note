@@ -29,6 +29,40 @@ class Favouritepage extends StatelessWidget {
             (BuildContext ctx, List<RecipeModel> recipeList, Widget? child) {
           final filteredRecipeList =
               recipeList.where((recipe) => recipe.isFav == true).toList();
+          if (filteredRecipeList.isEmpty) {
+            return Center(
+                child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                const Icon(
+                  Icons.favorite,
+                  color: Colors.red,
+                  size: 80,
+                ),
+                Text(
+                  'Add your own Recipes ',
+                  style: GoogleFonts.poppins(
+                    fontSize: 29,
+                    color: const Color(primary),
+                  ),
+                ),
+                Text(
+                  'and press above icon ',
+                  style: GoogleFonts.poppins(
+                    fontSize: 29,
+                    color: const Color(primary),
+                  ),
+                ),
+                Text(
+                  'to appear here',
+                  style: GoogleFonts.poppins(
+                    fontSize: 29,
+                    color: const Color(primary),
+                  ),
+                ),
+              ],
+            ));
+          }
           return ListView.separated(
             itemBuilder: (ctx, index) {
               final data = filteredRecipeList[index];

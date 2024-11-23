@@ -11,8 +11,8 @@ Future<void> addRecipe(RecipeModel value) async {
   value.id = _id;
   value.isFav = false;
   await recipeDB.put(_id, value);
-  print('Sucessful');
-  print(value.isFav);
+  // print('Sucessful');
+  // print(value.isFav);
   recipeListNotifier.value.add(value);
   recipeListNotifier.notifyListeners();
 }
@@ -49,10 +49,10 @@ void storeRecipe(
       directioncontroller.map((controller) => controller.text).toList();
   final timedata = time.text.trim();
   final ratingdata = rating.text.trim();
-  print(quantity);
-  print(ingredient);
-  print(direction);
-  print(categoryId);
+  // print(quantity);
+  // print(ingredient);
+  // print(direction);
+  // print(categoryId);
   final recipe = RecipeModel(
     recipePic: pic,
     name: name.text.trim(),

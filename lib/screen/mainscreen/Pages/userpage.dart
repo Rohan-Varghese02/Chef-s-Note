@@ -1,7 +1,8 @@
 import 'dart:typed_data';
 
 import 'package:cook_book/const/colors.dart';
-import 'package:cook_book/db/model/user_model.dart';
+import 'package:cook_book/db/model/usermodel/user_model.dart';
+import 'package:cook_book/screen/mainscreen/Pages/userpagewidget/shoppingPage/shoppinglistbutton.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:hive/hive.dart';
@@ -92,6 +93,9 @@ class _UserpageState extends State<Userpage> {
                     fontSize: 24, color: Color.fromARGB(221, 3, 87, 83)),
                 textAlign: TextAlign.center,
               ),
+              const SizedBox(height: 10),
+
+              Shoppinglistbutton()
             ],
           ),
         ),

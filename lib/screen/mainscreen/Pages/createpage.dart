@@ -16,7 +16,7 @@ class Createpage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          'Create Your Recpies',
+          'Make Your Own Recpies',
           style: GoogleFonts.poppins(
               color: const Color(primary),
               fontWeight: FontWeight.bold,

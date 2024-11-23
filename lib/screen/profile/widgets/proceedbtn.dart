@@ -4,7 +4,7 @@ import 'dart:typed_data';
 
 import 'package:cook_book/const/colors.dart';
 import 'package:cook_book/const/utils.dart';
-import 'package:cook_book/db/model/user_model.dart';
+import 'package:cook_book/db/model/usermodel/user_model.dart';
 import 'package:cook_book/screen/mainscreen/mainview.dart';
 import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
