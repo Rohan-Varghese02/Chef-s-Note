@@ -4,12 +4,13 @@ import 'package:cook_book/const/colors.dart';
 import 'package:cook_book/db/dbfunction/recipe_notifier.dart';
 import 'package:cook_book/db/model/recipe_model/recipe_model.dart';
 import 'package:cook_book/screen/mainscreen/Pages/userpagewidget/shoppingPage/shoppinglist.dart';
+import 'package:cook_book/screen/recipescreen/editrecipescreen.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class Recipescreen extends StatefulWidget {
-  final RecipeModel data;
-  const Recipescreen({super.key, required this.data});
+  RecipeModel data;
+  Recipescreen({super.key, required this.data});
 
   @override
   State<Recipescreen> createState() => _RecipescreenState();
@@ -58,7 +59,29 @@ class _RecipescreenState extends State<Recipescreen> {
               icon: Icon(
                 isFavorites! ? Icons.favorite : Icons.favorite_border,
                 color: isFavorites! ? Colors.red : Colors.white,
-              ))
+              )),
+          // Edit IconButton
+          IconButton(
+            onPressed: () async {
+              // Navigate to EditRecipeScreen and wait for result
+              final updatedRecipe = await Navigator.of(context).push(
+                MaterialPageRoute(
+                  builder: (ctx) => EditRecipeScreen(data: widget.data),
+                ),
+              );
+
+              // Check if the recipe was updated and refresh the state
+              if (updatedRecipe != null && updatedRecipe is RecipeModel) {
+                setState(() {
+                  widget.data = updatedRecipe;
+                });
+              }
+            },
+            icon: const Icon(
+              Icons.edit,
+              color: Colors.white,
+            ),
+          ),
         ],
       ),
       backgroundColor: const Color(primary),

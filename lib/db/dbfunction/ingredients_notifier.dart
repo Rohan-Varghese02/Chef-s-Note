@@ -22,14 +22,15 @@ Future<void> getAllIngredient() async {
   ingredientNotifier.notifyListeners();
 }
 
-Future<void> deleteIngredient(String name) async {
+Future<void> deleteIngredient(String name, String quantity) async {
   final ingredientDB = await Hive.openBox<IngredientModel>('ingredientBox');
 
-  // Find the key of the ingredient with the matching name
+  // Find the key of the ingredient with the matching name and quantity
   final keyToDelete = ingredientDB.keys.firstWhere(
     (key) {
       final ingredient = ingredientDB.get(key);
-      return ingredient?.name == name;
+      // Check if both the name and quantity match
+      return ingredient?.name == name && ingredient?.quantity == quantity;
     },
     orElse: () => null, // Return null if no match is found
   );

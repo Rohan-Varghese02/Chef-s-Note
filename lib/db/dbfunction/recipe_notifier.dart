@@ -21,6 +21,8 @@ Future<void> getRecipes() async {
   final recipeDB = await Hive.openBox<RecipeModel>('recipeBox');
   recipeListNotifier.value.clear();
 
+    print('All keys in Hive: ${recipeDB.keys}');
+
   recipeListNotifier.value.addAll(recipeDB.values);
   recipeListNotifier.notifyListeners();
 }
@@ -29,6 +31,22 @@ Future<void> deleteRecipe(int? id) async {
   final recipeDB = await Hive.openBox<RecipeModel>('recipeBox');
   await recipeDB.delete(id);
   getRecipes();
+}
+
+Future<void> updateRecipe(int id, RecipeModel updatedRecipe) async {
+  final box = await Hive.openBox<RecipeModel>('recipeBox');
+
+  print('Keys in Hive: ${box.keys}');
+  print('ID to update: $id');
+
+  if (box.containsKey(id)) {
+    await box.put(id, updatedRecipe);
+    print('Edited successfully: $updatedRecipe');
+    getRecipes();
+  } else {
+    print('Recipe not found for ID: $id');
+    throw Exception('Recipe not found!');
+  }
 }
 
 void storeRecipe(

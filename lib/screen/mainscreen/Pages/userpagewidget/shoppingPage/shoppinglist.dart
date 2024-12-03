@@ -22,6 +22,7 @@ class _ShoppinglistState extends State<Shoppinglist> {
           'Shopping List',
           style: TextStyle(color: Colors.white),
         ),
+        centerTitle: true,
         backgroundColor: const Color(primary),
         titleTextStyle: GoogleFonts.poppins(color: Colors.white, fontSize: 30),
       ),

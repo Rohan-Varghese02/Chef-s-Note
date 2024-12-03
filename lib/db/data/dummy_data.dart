@@ -52,7 +52,14 @@ const dummyMeals = [
       'Spices',
       'Cheese'
     ],
-    qty: ['4', '1tbsp', '1', '250g', 'as required', '1-2 slice'],
+    qty: [
+      '400g', // 4 tomatoes, assuming an average tomato weighs ~100g.
+      '15ml', // 1 tablespoon = 15ml.
+      '150g', // 1 medium onion weighs ~150g.
+      '250g', // Spaghetti remains as-is in grams.
+      '20g', // Spices generally measured by preference.
+      '40g' // 1-2 slices of cheese, depending on slice thickness.
+    ],
     steps: [
       'Cut the tomatoes and the onion into small pieces.',
       'Boil some water - add salt to it once it boils.',
@@ -84,7 +91,13 @@ const dummyMeals = [
       'Slices of Cheese',
       'Butter'
     ],
-    qty: ['1', '1', '1', '1-2 Slice', '1tsp'],
+    qty: [
+      '30g', // 1 slice of white bread, average weight ~30g.
+      '25g', // 1 slice of ham, average weight ~25g.
+      '50g', // 1 slice of pineapple, average weight ~50g.
+      '30-50g', // 1-2 slices of cheese, depending on slice thickness (~15-25g per slice).
+      '5g' // 1 teaspoon of butter ~5g.
+    ],
     steps: [
       'Butter one side of the white bread',
       'Layer ham, the pineapple and cheese on the white bread',
@@ -95,40 +108,7 @@ const dummyMeals = [
     isVegetarian: false,
     isLactoseFree: false,
   ),
-  // Meal(
-  //   rating: '4.4',
-  //   id: 'm3',
-  //   categories: [
-  //     'c1',
-  //     // add american 'c3',
-  //   ],
-  //   title: 'Classic Hamburger',
-  //   affordability: Affordability.pricey,
-  //   complexity: Complexity.simple,
-  //   imageUrl:
-  //       'https://cdn.pixabay.com/photo/2014/10/23/18/05/burger-500054_1280.jpg',
-  //   duration: 45,
-  //   ingredients: [
-  //     'Cattle Hack',
-  //     'Tomato',
-  //     'Cucumber',
-  //     'Onion',
-  //     'Ketchup',
-  //     'Burger Buns'
-  //   ],
-  //   qty: ['300g', '1', '1', 'as required', '2'],
-  //   steps: [
-  //     'Form 2 patties',
-  //     'Fry the patties for c. 4 minutes on each side',
-  //     'Quickly fry the buns for c. 1 minute on each side',
-  //     'Bruch buns with ketchup',
-  //     'Serve burger with tomato, cucumber and onion'
-  //   ],
-  //   isGlutenFree: false,
-  //   isVegan: false,
-  //   isVegetarian: false,
-  //   isLactoseFree: true,
-  // ),
+
   Meal(
     rating: '3.8',
     id: 'm5',
@@ -148,9 +128,17 @@ const dummyMeals = [
       'Mustard',
       'Balsamic Vinegar',
       'Olive Oil',
-      'Salt and Pepper'
     ],
-    qty: ['1', '1', '1', '2', '200', '1/4 cup', '1/2 cup', 'Preffered'],
+    qty: [
+      '30g', // 1 bunch of arugula, ~30g.
+      '30g', // 1 bunch of lamb's lettuce, ~30g.
+      '10g', // 1 handful of parsley, ~10g.
+      '150g', // 2 bulbs of fennel, ~75g each.
+      '200g', // Smoked salmon stays as-is.
+      '60ml', // 1/4 cup of mustard = ~60ml.
+      '120ml', // 1/2 cup of balsamic vinegar = ~120ml.
+      'to taste', // Olive oil, salt, and pepper are typically added to taste.
+    ],
     steps: [
       'Wash and cut salad and herbs',
       'Dice the salmon',
@@ -167,9 +155,7 @@ const dummyMeals = [
   Meal(
     rating: '4.5',
     id: 'm21',
-    categories: [
-      'c4',
-    ],
+    categories: ['c4', 'rec'],
     title: 'Butter Chicken',
     affordability: Affordability.pricey,
     complexity: Complexity.challenging,
@@ -193,18 +179,18 @@ const dummyMeals = [
     ],
     qty: [
       '500g',
-      '1/2 cup',
-      '3 tbsp',
-      '1 cup',
+      '120ml',
+      '15g',
+      '100ml',
       '1',
       '4 cloves',
-      '1 inch',
-      '1/2 cup',
-      'as required',
-      'as required',
-      'as required',
-      'as required',
-      'as required',
+      '1',
+      '120 ml',
+      '5g',
+      '10g',
+      '15g',
+      '25g',
+      '10g',
     ],
     steps: [
       'Marinate the chicken with yogurt, turmeric, chili powder, and salt. Let it sit for 1 hour.',
@@ -241,16 +227,7 @@ const dummyMeals = [
       'Cream',
       'Spices'
     ],
-    qty: [
-      '200g',
-      '250g',
-      '1',
-      '3 cloves',
-      '1 inch',
-      '2',
-      '2 tbsp',
-      'as required'
-    ],
+    qty: ['200g', '250g', '1', '3 cloves', '1 ', '2', '10g', '20g'],
     steps: [
       'Blanch the spinach and blend it into a puree.',
       'Heat oil in a pan, sauté cumin, onions, garlic, ginger, and chilies.',
@@ -283,7 +260,7 @@ const dummyMeals = [
       'Turmeric',
       'Oil'
     ],
-    qty: ['2 cups', '3', '1', '2', '10', '1 tsp', '1/2 tsp', 'as required'],
+    qty: ['2 cups', '3', '1', '2', '10', '5g', '10g', '100ml'],
     steps: [
       'Boil and mash the potatoes.',
       'Heat oil in a pan, add mustard seeds, curry leaves, and green chilies.',
@@ -320,17 +297,7 @@ const dummyMeals = [
       'Saffron',
       'Ghee'
     ],
-    qty: [
-      '500g',
-      '2 cups',
-      '1 cup',
-      '3',
-      '2',
-      '2 tbsp',
-      'as required',
-      'a pinch',
-      '2 tbsp'
-    ],
+    qty: ['500g', '250g', '120ml', '3', '2', '10g', '20g', '10', '20ml'],
     steps: [
       'Marinate the chicken with yogurt, biryani masala, and salt for 2 hours.',
       'Cook rice with whole spices until 70% done.',
@@ -623,7 +590,7 @@ const dummyMeals = [
       'Guanciale',
       'Black Pepper'
     ],
-    qty: ['250g', '2', '1/2 cup', '100g', 'to taste'],
+    qty: ['250g', '2', '120g', '100g', '25g'],
     steps: [
       'Cook spaghetti until al dente and save some pasta water.',
       'Fry guanciale until crispy in a pan.',
@@ -638,7 +605,7 @@ const dummyMeals = [
     isLactoseFree: false,
   ),
   Meal(
-    rating: '4.9',
+    rating: '5',
     id: 'm12',
     categories: [
       'c2',

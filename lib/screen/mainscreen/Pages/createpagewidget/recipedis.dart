@@ -112,7 +112,7 @@ class _RecipedisState extends State<Recipedis> {
                             style: GoogleFonts.poppins(fontSize: 16),
                           ),
                           const SizedBox(
-                            width: 35,
+                            width: 30,
                           ),
                           const Icon(Icons.shopify,
                               size: 20, color: Color(primary)),
@@ -121,7 +121,7 @@ class _RecipedisState extends State<Recipedis> {
                             style: GoogleFonts.poppins(fontSize: 16),
                           ),
                           const SizedBox(
-                            width: 35,
+                            width: 30,
                           ),
                           const Icon(Icons.timer,
                               size: 20, color: Color(primary)),
@@ -165,7 +165,7 @@ class _RecipedisState extends State<Recipedis> {
                                               fontWeight: FontWeight.bold),
                                         ),
                                         content: Text(
-                                          'Do you really wish to permenantly delete ${data.name}',
+                                          'Do you really wish to permenantly delete ${data.name} recipe',
                                           style: const TextStyle(
                                               color: Colors.white),
                                         ),
@@ -185,13 +185,11 @@ class _RecipedisState extends State<Recipedis> {
                                                 deleteRecipe(data.id);
                                                 Navigator.of(context).pop();
                                               } else {
-                                                print('No such Student ID');
                                                 Navigator.of(context).pop();
                                               }
                                             },
                                             style: ElevatedButton.styleFrom(
-                                                backgroundColor:
-                                                    const Color(0xff03E079)),
+                                                backgroundColor: Colors.white),
                                             child: const Text('Yes',
                                                 style: TextStyle(
                                                     color: Color(primary))),

@@ -19,6 +19,9 @@ class _SearchpageState extends State<Searchpage> {
   bool _isVegetarian = false;
   String _searchQuery = '';
   List<Meal> _filteredMeals = dummyMeals;
+  String _selectedRating = "0";
+  int _maxTime = 60; // in minutes
+  int _maxIngredients = 10;
 
   void _updateSearch(String query) {
     setState(() {
@@ -38,13 +41,51 @@ class _SearchpageState extends State<Searchpage> {
         final matchesGlutenFree = !_isGlutenFree || meal.isGlutenFree;
         final matchesLactoseFree = !_isLactoseFree || meal.isLactoseFree;
         final matchesVegetarian = !_isVegetarian || meal.isVegetarian;
+        final matchesRating = meal.rating.compareTo(_selectedRating) >= 0;
+        final matchesTime = meal.duration <= _maxTime;
+        final matchesIngredients = meal.ingredients.length <= _maxIngredients;
 
         return matchesSearch &&
             matchesGlutenFree &&
             matchesLactoseFree &&
-            matchesVegetarian;
+            matchesVegetarian &&
+            matchesRating &&
+            matchesTime &&
+            matchesIngredients;
       }).toList();
     });
+  }
+
+  Widget _buildSlider({
+    required String title,
+    required double min,
+    required double max,
+    required double value,
+    required String unit,
+    required Function(double) onChanged,
+  }) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 15.0),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            '$title: ${value.toStringAsFixed(0)} $unit',
+            style:
+                GoogleFonts.poppins(color: const Color(primary), fontSize: 17),
+          ),
+          Slider(
+            activeColor: const Color(primary),
+            inactiveColor: Colors.grey,
+            min: min,
+            max: max,
+            value: value,
+            divisions: (max - min).toInt(),
+            onChanged: onChanged,
+          ),
+        ],
+      ),
+    );
   }
 
   Widget _buildFilterSwitch(
@@ -53,13 +94,57 @@ class _SearchpageState extends State<Searchpage> {
       activeColor: const Color(primary),
       title: Text(
         title,
-        style: GoogleFonts.poppins(color: const Color(primary)),
+        style: GoogleFonts.poppins(color: const Color(primary), fontSize: 17),
       ),
       value: currentValue,
       onChanged: (value) {
         updateValue(value);
         _applyFilters();
       },
+    );
+  }
+
+  Widget _buildRatingDropdown() {
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 15.0),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Row(
+            children: [
+              Text(
+                'Minimum Rating',
+                style: GoogleFonts.poppins(
+                    color: const Color(primary), fontSize: 17),
+              ),
+              const SizedBox(
+                width: 20,
+              ),
+              DropdownButton<String>(
+                value: _selectedRating,
+                items: ["0", "1.5", "2.5", "3.5", "4.5", "5"]
+                    .map((rating) => DropdownMenuItem<String>(
+                          value: rating,
+                          child: Text(
+                            '$rating ',
+                            style: GoogleFonts.poppins(
+                                color: const Color(primary)),
+                          ),
+                        ))
+                    .toList(),
+                onChanged: (value) {
+                  setState(() {
+                    _selectedRating = value!;
+                    _applyFilters();
+                  });
+                },
+                dropdownColor: Colors.white,
+                icon: const Icon(Icons.star, color: Color(primary)),
+              ),
+            ],
+          ),
+        ],
+      ),
     );
   }
 
@@ -129,21 +214,45 @@ class _SearchpageState extends State<Searchpage> {
           ),
           // Filters Section
           if (_showFilters)
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 8.0),
-              child: Column(
-                children: [
-                  _buildFilterSwitch('Gluten-Free', _isGlutenFree, (value) {
-                    setState(() => _isGlutenFree = value);
-                  }),
-                  _buildFilterSwitch('Lactose-Free', _isLactoseFree, (value) {
-                    setState(() => _isLactoseFree = value);
-                  }),
-                  _buildFilterSwitch('Vegetarian', _isVegetarian, (value) {
-                    setState(() => _isVegetarian = value);
-                  }),
-                ],
-              ),
+            Column(
+              children: [
+                _buildFilterSwitch('Gluten-Free', _isGlutenFree, (value) {
+                  setState(() => _isGlutenFree = value);
+                }),
+                _buildFilterSwitch('Lactose-Free', _isLactoseFree, (value) {
+                  setState(() => _isLactoseFree = value);
+                }),
+                _buildFilterSwitch('Vegetarian', _isVegetarian, (value) {
+                  setState(() => _isVegetarian = value);
+                }),
+                _buildRatingDropdown(),
+                _buildSlider(
+                  title: 'Maximum Cooking Time',
+                  min: 10,
+                  max: 120,
+                  value: _maxTime.toDouble(),
+                  unit: 'mins',
+                  onChanged: (value) {
+                    setState(() {
+                      _maxTime = value.toInt();
+                      _applyFilters();
+                    });
+                  },
+                ),
+                _buildSlider(
+                  title: 'Maximum Ingredients',
+                  min: 1,
+                  max: 20,
+                  value: _maxIngredients.toDouble(),
+                  unit: '',
+                  onChanged: (value) {
+                    setState(() {
+                      _maxIngredients = value.toInt();
+                      _applyFilters();
+                    });
+                  },
+                ),
+              ],
             ),
           // Recipe List
           Expanded(
