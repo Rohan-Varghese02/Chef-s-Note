@@ -12,6 +12,7 @@ enum Affordability {
 
 class Meal {
   const Meal({
+    required this.timer,
     required this.rating,
     required this.id,
     required this.categories,
@@ -43,8 +44,9 @@ class Meal {
   final bool isLactoseFree;
   final bool isVegan;
   final bool isVegetarian;
+  final List<int> timer;
 
-    // Convert Meal to JSON
+  // Convert Meal to JSON
   Map<String, dynamic> toJson() {
     return {
       'rating': rating,
@@ -62,10 +64,10 @@ class Meal {
       'isLactoseFree': isLactoseFree,
       'isVegan': isVegan,
       'isVegetarian': isVegetarian,
+      'timer': timer,
     };
   }
 
-  // Create Meal from JSON
   factory Meal.fromJson(Map<String, dynamic> json) {
     return Meal(
       rating: json['rating'],
@@ -77,16 +79,15 @@ class Meal {
       qty: List<String>.from(json['qty']),
       steps: List<String>.from(json['steps']),
       duration: json['duration'],
-      complexity: Complexity.values[json['complexity']], // Convert index back to enum
-      affordability: Affordability.values[json['affordability']], // Convert index back to enum
+      complexity:
+          Complexity.values[json['complexity']], // Convert index back to enum
+      affordability: Affordability
+          .values[json['affordability']], // Convert index back to enum
       isGlutenFree: json['isGlutenFree'],
       isLactoseFree: json['isLactoseFree'],
       isVegan: json['isVegan'],
       isVegetarian: json['isVegetarian'],
+      timer: List<int>.from(json['timer']), // Convert timer to list of integers
     );
   }
 }
-
-
-
-

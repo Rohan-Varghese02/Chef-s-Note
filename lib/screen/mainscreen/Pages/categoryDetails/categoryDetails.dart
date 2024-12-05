@@ -105,7 +105,12 @@ class Categorydetails extends StatelessWidget {
     }
     return Scaffold(
         appBar: AppBar(
-          title: Text(title),
+          title: Text(
+            title,
+            style: GoogleFonts.poppins(color: Colors.white),
+          ),
+          centerTitle: true,
+          backgroundColor: const Color(primary),
         ),
         body: content);
   }

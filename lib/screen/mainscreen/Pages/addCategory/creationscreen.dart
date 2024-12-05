@@ -46,13 +46,14 @@ class _CreationscreenState extends State<Creationscreen> {
           padding: const EdgeInsets.all(16.0),
           child: Center(
             child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                ProfilePicture(image: _image, onImageSelect: selectImage),
+                // ProfilePicture(image: _image, onImageSelect: selectImage),
                 const SizedBox(
                   height: 20,
                 ),
                 Textfields(titleController: titleController, formkey: keyState),
-                Text('Note: Without Picture Category will not be stored!!'),
+                // Text('Note: Without Picture Category will not be stored!!'),
                 const SizedBox(
                   height: 20,
                 ),
@@ -72,8 +73,7 @@ class _CreationscreenState extends State<Creationscreen> {
                     ),
                     ElevatedButton(
                         onPressed: () {
-                          if (keyState.currentState!.validate() &&
-                              _image != null) {
+                          if (keyState.currentState!.validate()) {
                             // saveTitleData(titleController.text.trim(), _image);
                             addCategoryButton();
                             Navigator.of(context).pop();
@@ -98,12 +98,11 @@ class _CreationscreenState extends State<Creationscreen> {
 
   Future<void> addCategoryButton() async {
     final _title = titleController.text.trim();
-    final image = _image;
     print(_title);
-    if (_title.isEmpty || image == null) {
+    if (_title.isEmpty) {
       return;
     }
-    final _category = CustomCatModel(title: _title, titlePic: image);
+    final _category = CustomCatModel(title: _title, titlePic: null);
     addCategory(_category);
   }
 }
