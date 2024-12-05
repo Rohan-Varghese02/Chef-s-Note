@@ -21,6 +21,7 @@ class _SplashscreenState extends State<Splashscreen> {
     checkUserLogin();
     super.initState();
   }
+
   @override
   void didChangeDependencies() {
     // TODO: implement didChangeDependencies
@@ -43,7 +44,7 @@ class _SplashscreenState extends State<Splashscreen> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               const Icon(
-                Icons.pan_tool,
+                Icons.fastfood,
                 size: 100,
                 color: Color(primary),
               ),
@@ -60,11 +61,12 @@ class _SplashscreenState extends State<Splashscreen> {
       ),
     );
   }
+
   // Delay of Splashscreen
-    Future<void> goToProfilePage() async {
+  Future<void> goToProfilePage() async {
     await Future.delayed(const Duration(seconds: 5));
-    Navigator.of(context)
-        .pushReplacement(MaterialPageRoute(builder: (ctx) => const Homescreen()));
+    Navigator.of(context).pushReplacement(
+        MaterialPageRoute(builder: (ctx) => const Homescreen()));
   }
 
   Future<void> checkUserLogin() async {
@@ -73,8 +75,8 @@ class _SplashscreenState extends State<Splashscreen> {
     if (_userloggin == null || _userloggin == false) {
       goToProfilePage();
     } else {
-      Navigator.of(context)
-          .pushReplacement(MaterialPageRoute(builder: (ctx) => const Mainview()));
+      Navigator.of(context).pushReplacement(
+          MaterialPageRoute(builder: (ctx) => const Mainview()));
     }
   }
 }
