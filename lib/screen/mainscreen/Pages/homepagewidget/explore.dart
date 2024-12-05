@@ -1,4 +1,5 @@
 import 'package:cook_book/const/colors.dart';
+import 'package:cook_book/screen/mainscreen/Pages/addCategory/addCategory.dart';
 import 'package:cook_book/screen/mainscreen/Pages/homepagewidget/categoryPage.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -36,8 +37,8 @@ class Explore extends StatelessWidget {
                 ),
                 ElevatedButton(
                     onPressed: () {
-                      Navigator.of(context).push(
-                          MaterialPageRoute(builder: (ctx) => const Categorypage()));
+                      Navigator.of(context).push(MaterialPageRoute(
+                          builder: (ctx) => const Addcategory()));
                     },
                     child: Padding(
                       padding: const EdgeInsets.all(15.0),

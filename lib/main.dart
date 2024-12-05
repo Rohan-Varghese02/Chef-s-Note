@@ -14,7 +14,6 @@ void main() async {
   Hive.registerAdapter(CustomCatModelAdapter());
   Hive.registerAdapter(RecipeModelAdapter());
   Hive.registerAdapter(IngredientModelAdapter());
-
   // Check if the box is already open before opening it
   if (!Hive.isBoxOpen('userBox')) {
     await Hive.openBox<UserModel>('userBox');
@@ -30,6 +29,7 @@ void main() async {
   if (!Hive.isBoxOpen('ingredientBox')) {
     await Hive.openBox<IngredientModel>('ingredientBox');
   }
+
 
   runApp(const MyApp());
 }

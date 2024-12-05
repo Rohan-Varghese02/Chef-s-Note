@@ -2,6 +2,8 @@ import 'dart:typed_data';
 
 import 'package:cook_book/const/colors.dart';
 import 'package:cook_book/db/model/usermodel/user_model.dart';
+import 'package:cook_book/screen/mainscreen/Pages/userpagewidget/mealplannerpage/mealplannerbutton.dart';
+import 'package:cook_book/screen/mainscreen/Pages/userpagewidget/settingspage/contents/settingsbutton.dart';
 import 'package:cook_book/screen/mainscreen/Pages/userpagewidget/shoppingPage/shoppinglistbutton.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -95,7 +97,15 @@ class _UserpageState extends State<Userpage> {
               ),
               const SizedBox(height: 10),
 
-              Shoppinglistbutton()
+              const Shoppinglistbutton(),
+              const SizedBox(
+                height: 10,
+              ),
+              const Settingsbutton(),
+              const SizedBox(
+                height: 10,
+              ),
+              const Mealplannerbutton()
             ],
           ),
         ),

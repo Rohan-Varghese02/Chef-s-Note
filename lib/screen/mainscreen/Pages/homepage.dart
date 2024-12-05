@@ -108,8 +108,22 @@ class Homepage extends StatelessWidget {
                         },
                         child: Container(
                           decoration: BoxDecoration(
-                              border: Border.all(color: const Color(primary)),
-                              borderRadius: BorderRadius.circular(15)),
+                            color: Colors
+                                .white, // Background color of the container
+                            borderRadius: BorderRadius.circular(
+                                10), // Optional: Rounded corners
+                            boxShadow: [
+                              BoxShadow(
+                                color: const Color.fromARGB(255, 77, 172, 167)
+                                    .withOpacity(
+                                        0.5), // Shadow color and opacity
+                                spreadRadius: 2, // How much the shadow spreads
+                                blurRadius: 5, // How soft the shadow is
+                                offset: const Offset(2,
+                                    3), // Horizontal and vertical shadow offsets
+                              ),
+                            ],
+                          ),
                           height: 90,
                           child: Center(
                             child: ListTile(

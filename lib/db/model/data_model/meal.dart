@@ -43,4 +43,50 @@ class Meal {
   final bool isLactoseFree;
   final bool isVegan;
   final bool isVegetarian;
+
+    // Convert Meal to JSON
+  Map<String, dynamic> toJson() {
+    return {
+      'rating': rating,
+      'id': id,
+      'categories': categories,
+      'title': title,
+      'imageUrl': imageUrl,
+      'ingredients': ingredients,
+      'qty': qty,
+      'steps': steps,
+      'duration': duration,
+      'complexity': complexity.index, // Save enum as index
+      'affordability': affordability.index, // Save enum as index
+      'isGlutenFree': isGlutenFree,
+      'isLactoseFree': isLactoseFree,
+      'isVegan': isVegan,
+      'isVegetarian': isVegetarian,
+    };
+  }
+
+  // Create Meal from JSON
+  factory Meal.fromJson(Map<String, dynamic> json) {
+    return Meal(
+      rating: json['rating'],
+      id: json['id'],
+      categories: List<String>.from(json['categories']),
+      title: json['title'],
+      imageUrl: json['imageUrl'],
+      ingredients: List<String>.from(json['ingredients']),
+      qty: List<String>.from(json['qty']),
+      steps: List<String>.from(json['steps']),
+      duration: json['duration'],
+      complexity: Complexity.values[json['complexity']], // Convert index back to enum
+      affordability: Affordability.values[json['affordability']], // Convert index back to enum
+      isGlutenFree: json['isGlutenFree'],
+      isLactoseFree: json['isLactoseFree'],
+      isVegan: json['isVegan'],
+      isVegetarian: json['isVegetarian'],
+    );
+  }
 }
+
+
+
+
