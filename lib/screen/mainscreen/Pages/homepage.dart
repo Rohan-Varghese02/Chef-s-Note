@@ -4,7 +4,7 @@ import 'package:cook_book/screen/mainscreen/Pages/addCategory/addCategory.dart';
 import 'package:cook_book/screen/mainscreen/Pages/homepagewidget/categoryItem.dart';
 import 'package:cook_book/screen/mainscreen/Pages/homepagewidget/explore.dart';
 import 'package:cook_book/screen/mainscreen/Pages/homepagewidget/searchbar.dart';
-import 'package:cook_book/screen/recipescreen/recipeStatic.dart';
+import 'package:cook_book/screen/recipescreen/static_recipe/recipeStatic.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -73,7 +73,7 @@ class Homepage extends StatelessWidget {
                   ],
                 ),
                 SizedBox(
-                  width: 430,
+                  width: double.infinity,
                   height: 140,
                   child: ListView(
                     scrollDirection: Axis.horizontal,

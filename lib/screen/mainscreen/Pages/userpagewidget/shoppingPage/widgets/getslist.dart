@@ -2,7 +2,7 @@ import 'package:cook_book/const/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:cook_book/db/dbfunction/ingredients_notifier.dart';
+import 'package:cook_book/db/dbnotifiers/ingredients_notifier.dart';
 import 'package:cook_book/db/model/shoppinglist_model/shoppinglist_model.dart';
 
 class Getslist extends StatefulWidget {
@@ -14,8 +14,7 @@ class Getslist extends StatefulWidget {
 
 class _GetslistState extends State<Getslist> {
   late SharedPreferences _prefs;
-  Map<String, bool> _checkedState =
-      {}; // Track the checked state using name + quantity
+  Map<String, bool> _checkedState = {};
 
   @override
   void initState() {
@@ -23,7 +22,6 @@ class _GetslistState extends State<Getslist> {
     _loadCheckedState();
   }
 
-  /// Load checked states from SharedPreferences
   Future<void> _loadCheckedState() async {
     _prefs = await SharedPreferences.getInstance();
     setState(() {
@@ -36,7 +34,6 @@ class _GetslistState extends State<Getslist> {
     });
   }
 
-  /// Save the current checked states to SharedPreferences
   Future<void> _saveCheckedState() async {
     final List<String> savedStates = _checkedState.entries
         .map((entry) => '${entry.key}:${entry.value}')
@@ -44,20 +41,38 @@ class _GetslistState extends State<Getslist> {
     await _prefs.setStringList('checkedState', savedStates);
   }
 
-  /// Delete crossed-out items
   void _removeCrossedOutIngredients() {
     setState(() {
       _checkedState.removeWhere((key, value) {
         if (value) {
-          final parts = key.split(":"); // Split to get name and quantity
+          final parts = key.split(":");
           final name = parts[0];
           final quantity = parts[1];
-          deleteIngredient(
-              name, quantity); // Remove from database by name and quantity
+          deleteIngredient(name, quantity);
         }
-        return value; // Remove from map
+        return value;
       });
-      _saveCheckedState(); // Save updated state
+      _saveCheckedState();
+    });
+  }
+
+  void _selectAll(List<IngredientModel> ingredientList) {
+    setState(() {
+      for (final ingredient in ingredientList) {
+        final key = '${ingredient.name}:${ingredient.quantity}';
+        _checkedState[key] = true; // Mark as selected
+      }
+      _saveCheckedState();
+    });
+  }
+
+  void _uncheckAll(List<IngredientModel> ingredientList) {
+    setState(() {
+      for (final ingredient in ingredientList) {
+        final key = '${ingredient.name}:${ingredient.quantity}';
+        _checkedState[key] = false; // Mark as unselected
+      }
+      _saveCheckedState();
     });
   }
 
@@ -93,11 +108,36 @@ class _GetslistState extends State<Getslist> {
         return Scaffold(
           body: Column(
             children: [
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                          backgroundColor: const Color(primary)),
+                      onPressed: () => _selectAll(ingredientList),
+                      child: Text(
+                        "Select All",
+                        style: GoogleFonts.poppins(color: Colors.white),
+                      ),
+                    ),
+                    ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                          backgroundColor: const Color(primary)),
+                      onPressed: () => _uncheckAll(ingredientList),
+                      child: Text(
+                        "Uncheck All",
+                        style: GoogleFonts.poppins(color: Colors.white),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
               Expanded(
                 child: ListView.separated(
                   itemBuilder: (ctx, index) {
                     final data = ingredientList[index];
-                    // Use a combined key of name and quantity (to avoid conflicts)
                     final key = '${data.name}:${data.quantity}';
                     final isChecked = _checkedState[key] ?? false;
 
@@ -119,19 +159,14 @@ class _GetslistState extends State<Getslist> {
                               : TextDecoration.none,
                         ),
                       ),
-                      trailing: Row(
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                          Checkbox(
-                            value: isChecked,
-                            onChanged: (bool? value) {
-                              setState(() {
-                                _checkedState[key] = value ?? false;
-                                _saveCheckedState(); // Save the updated state
-                              });
-                            },
-                          ),
-                        ],
+                      trailing: Checkbox(
+                        value: isChecked,
+                        onChanged: (bool? value) {
+                          setState(() {
+                            _checkedState[key] = value ?? false;
+                            _saveCheckedState();
+                          });
+                        },
                       ),
                     );
                   },

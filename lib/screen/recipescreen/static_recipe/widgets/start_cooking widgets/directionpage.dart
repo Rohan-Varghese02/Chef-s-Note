@@ -1,6 +1,6 @@
 import 'package:cook_book/const/colors.dart';
 import 'package:cook_book/db/model/data_model/meal.dart';
-import 'package:cook_book/screen/recipescreen/recipeStatic.dart';
+import 'package:cook_book/screen/recipescreen/static_recipe/recipeStatic.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'dart:async';
@@ -189,9 +189,10 @@ class _DirectionpageState extends State<Directionpage> {
               children: [
                 if (_currentStep != 0)
                   ElevatedButton(
-                    onPressed: _currentStep > 0 ? _previousStep : null,
+                    onPressed: _isTimerActive ? null : _previousStep,
                     style: ElevatedButton.styleFrom(
-                      backgroundColor: const Color(primary),
+                      backgroundColor:
+                          _isTimerActive ? Colors.grey : const Color(primary),
                       padding: const EdgeInsets.symmetric(
                           horizontal: 55, vertical: 13),
                     ),

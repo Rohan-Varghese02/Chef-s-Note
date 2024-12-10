@@ -1,6 +1,6 @@
 import 'package:cook_book/const/colors.dart';
 import 'package:cook_book/db/model/data_model/meal.dart';
-import 'package:cook_book/screen/recipescreen/recipeStatic.dart';
+import 'package:cook_book/screen/recipescreen/static_recipe/recipeStatic.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 

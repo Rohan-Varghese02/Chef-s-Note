@@ -27,7 +27,7 @@ class Settingsbutton extends StatelessWidget {
               child: Row(
                 children: [
                   Text(
-                    'Settings',
+                    '  Settings',
                     style: GoogleFonts.poppins(
                       color: Colors.white,
                       fontSize: 20,

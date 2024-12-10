@@ -1,9 +1,9 @@
 import 'dart:typed_data';
 
 import 'package:cook_book/const/colors.dart';
-import 'package:cook_book/db/dbfunction/recipe_notifier.dart';
+import 'package:cook_book/db/dbnotifiers/recipe_notifier.dart';
 import 'package:cook_book/db/model/recipe_model/recipe_model.dart';
-import 'package:cook_book/screen/recipescreen/recipescreen.dart';
+import 'package:cook_book/screen/recipescreen/custom_recipe/recipescreen.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -43,7 +43,34 @@ class Detailedlist extends StatelessWidget {
                             fontWeight: FontWeight.w700,
                             fontSize: 20),
                       ),
-                      subtitle: Text(data.categoryId.toString()),
+                      subtitle: Row(
+                        children: [
+                          const Icon(Icons.star,
+                              size: 20, color: Color(primary)),
+                          Text(
+                            data.rating,
+                            style: GoogleFonts.poppins(fontSize: 16),
+                          ),
+                          const SizedBox(
+                            width: 30,
+                          ),
+                          const Icon(Icons.shopify,
+                              size: 20, color: Color(primary)),
+                          Text(
+                            data.ingridients.length.toString(),
+                            style: GoogleFonts.poppins(fontSize: 16),
+                          ),
+                          const SizedBox(
+                            width: 30,
+                          ),
+                          const Icon(Icons.timer,
+                              size: 20, color: Color(primary)),
+                          Text(
+                            data.time,
+                            style: GoogleFonts.poppins(fontSize: 16),
+                          ),
+                        ],
+                      ),
                       leading: CircleAvatar(
                         radius: 30,
                         backgroundImage: MemoryImage(pic),

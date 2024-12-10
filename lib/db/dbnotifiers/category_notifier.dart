@@ -9,9 +9,9 @@ final ValueNotifier<List<CustomCatModel>> categoryListNotifier =
 Future<void> addCategory(CustomCatModel value) async {
   final categoryDB = await Hive.openBox<CustomCatModel>('catBox');
   //print('Success');
-  final _id = await categoryDB.add(value);
-  value.id = _id;
-  await categoryDB.put(_id, value);
+  final id = await categoryDB.add(value);
+  value.id = id;
+  await categoryDB.put(id, value);
   categoryListNotifier.value.add(value);
   categoryListNotifier.notifyListeners();
 }

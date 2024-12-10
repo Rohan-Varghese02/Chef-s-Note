@@ -1,5 +1,5 @@
 import 'package:cook_book/const/colors.dart';
-import 'package:cook_book/db/dbfunction/ingredients_notifier.dart';
+import 'package:cook_book/db/dbnotifiers/ingredients_notifier.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 

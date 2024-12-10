@@ -1,7 +1,7 @@
 import 'package:cook_book/const/colors.dart';
 import 'package:cook_book/db/model/data_model/meal.dart';
-import 'package:cook_book/screen/recipescreen/shoppinglistfn.dart';
-import 'package:cook_book/screen/recipescreen/start_cooking%20widgets/directionpage.dart';
+import 'package:cook_book/screen/recipescreen/static_recipe/widgets/shoppinglistfn.dart';
+import 'package:cook_book/screen/recipescreen/static_recipe/widgets/start_cooking%20widgets/directionpage.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 

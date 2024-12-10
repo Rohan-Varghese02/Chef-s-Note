@@ -1,10 +1,12 @@
 import 'dart:typed_data';
 
 import 'package:cook_book/const/colors.dart';
+import 'package:cook_book/db/model/custom_category/custom_cat_model.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:cook_book/db/dbfunction/recipe_notifier.dart';
+import 'package:cook_book/db/dbnotifiers/recipe_notifier.dart';
 import 'package:cook_book/db/model/recipe_model/recipe_model.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 import 'package:image_picker/image_picker.dart';
 
 class EditRecipeScreen extends StatefulWidget {
@@ -27,11 +29,11 @@ class _EditRecipeScreenState extends State<EditRecipeScreen> {
   late List<TextEditingController> _directionsControllers;
   late List<TextEditingController> _qtyControllers;
   Uint8List? _selectedImage;
+  late int? _selectedCategoryId;
   @override
   void initState() {
     super.initState();
 
-    // Initialize controllers with existing data
     _nameController = TextEditingController(text: widget.data.name);
     _timeController = TextEditingController(text: widget.data.time.toString());
     _difficultyController = TextEditingController(text: widget.data.difficulty);
@@ -46,8 +48,11 @@ class _EditRecipeScreenState extends State<EditRecipeScreen> {
     _directionsControllers = widget.data.direction
         .map((direction) => TextEditingController(text: direction))
         .toList();
-    // Load existing image into _selectedImage if available
+
     _selectedImage = widget.data.recipePic;
+
+    // Initialize selected category ID
+    _selectedCategoryId = widget.data.categoryId;
   }
 
   Future<void> _pickImage() async {
@@ -84,14 +89,12 @@ class _EditRecipeScreenState extends State<EditRecipeScreen> {
         time: _timeController.text,
         difficulty: _difficultyController.text,
         rating: _ratingController.text,
-        qty: _qtyControllers
-            .map((c) => c.text)
-            .toList(), // Include updated quantities
+        qty: _qtyControllers.map((c) => c.text).toList(),
         ingridients: _ingredientsControllers.map((c) => c.text).toList(),
         direction: _directionsControllers.map((c) => c.text).toList(),
-        recipePic:
-            _selectedImage ?? widget.data.recipePic, // Save updated image
-        isFav: widget.data.isFav, categoryId: widget.data.categoryId,
+        recipePic: _selectedImage ?? widget.data.recipePic,
+        isFav: widget.data.isFav,
+        categoryId: _selectedCategoryId, // Use the updated category ID
       );
 
       print('Saving updated recipe with ID: ${widget.data.id}');
@@ -102,6 +105,8 @@ class _EditRecipeScreenState extends State<EditRecipeScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final categoryBox = Hive.box<CustomCatModel>('catBox');
+
     return Scaffold(
       appBar: AppBar(
         title: Text('Edit Recipe',
@@ -391,6 +396,36 @@ class _EditRecipeScreenState extends State<EditRecipeScreen> {
                   },
                   child: const Text('Add Direction'),
                 ),
+                const SizedBox(height: 10),
+                DropdownButtonFormField<int>(
+                  value: _selectedCategoryId,
+                  hint: const Text('Select Category'),
+                  items: categoryBox.values.map((category) {
+                    return DropdownMenuItem<int>(
+                      value: category.id as int,
+                      child: Text(category.title),
+                    );
+                  }).toList(),
+                  onChanged: (int? newValue) {
+                    setState(() {
+                      _selectedCategoryId = newValue!;
+                    });
+                  },
+                  decoration: const InputDecoration(
+                    labelText: 'Category',
+                    border: OutlineInputBorder(
+                      borderSide: BorderSide(),
+                    ),
+                    enabledBorder: OutlineInputBorder(
+                      borderSide: BorderSide(
+                        color: Color(primary),
+                      ),
+                    ),
+                  ),
+                  validator: (value) =>
+                      value == null ? 'Please select a category' : null,
+                ),
+                const SizedBox(height: 16)
               ],
             ),
           ),

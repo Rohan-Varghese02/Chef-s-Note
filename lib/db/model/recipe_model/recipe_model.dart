@@ -18,7 +18,7 @@ class RecipeModel extends HiveObject {
   @HiveField(5)
   final List<String> direction;
   @HiveField(6)
-  final int? categoryId;
+  late final int? categoryId;
   @HiveField(7)
   bool? isFav;
   @HiveField(8)

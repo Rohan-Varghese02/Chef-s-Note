@@ -1,9 +1,10 @@
 import 'package:cook_book/const/colors.dart';
-import 'package:cook_book/db/dbfunction/ingredients_notifier.dart';
+import 'package:cook_book/db/dbnotifiers/ingredients_notifier.dart';
 import 'package:cook_book/db/model/data_model/meal.dart';
-import 'package:cook_book/screen/recipescreen/mealplannerdailog.dart';
-import 'package:cook_book/screen/recipescreen/shoppinglistfn.dart';
-import 'package:cook_book/screen/recipescreen/start_cooking%20widgets/startcookingpage.dart';
+import 'package:cook_book/db/model/shoppinglist_model/shoppinglist_model.dart';
+import 'package:cook_book/screen/recipescreen/static_recipe/widgets/mealplannerdailog.dart';
+import 'package:cook_book/screen/recipescreen/static_recipe/widgets/shoppinglistfn.dart';
+import 'package:cook_book/screen/recipescreen/static_recipe/widgets/start_cooking%20widgets/startcookingpage.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -16,6 +17,141 @@ class Recipestatic extends StatefulWidget {
 }
 
 class _RecipestaticState extends State<Recipestatic> {
+  int servingCount = 1; // Default serving count
+
+  void showServingDialog() {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        int tempServingCount = servingCount;
+
+        return StatefulBuilder(
+          builder: (BuildContext context, StateSetter setDialogState) {
+            return AlertDialog(
+              title: Text(
+                'Add Everything To Cart',
+                style: GoogleFonts.poppins(color: const Color(primary)),
+              ),
+              content: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Container(
+                    decoration: BoxDecoration(
+                        border: Border.all(color: Colors.green),
+                        color: Colors.green),
+                    child: IconButton(
+                      icon: const Icon(
+                        Icons.remove,
+                        color: Colors.white,
+                      ),
+                      onPressed: () {
+                        if (tempServingCount > 1) {
+                          setDialogState(() {
+                            tempServingCount--;
+                          });
+                        }
+                      },
+                    ),
+                  ),
+                  Container(
+                    width: 180,
+                    height: 50,
+                    decoration: BoxDecoration(
+                        border: Border.all(width: 0.5, color: Colors.grey)),
+                    child: Center(
+                      child: Text(
+                        '$tempServingCount',
+                        style: GoogleFonts.poppins(
+                            color: const Color(primary), fontSize: 18),
+                      ),
+                    ),
+                  ),
+                  Container(
+                    decoration: BoxDecoration(
+                        border: Border.all(color: Colors.red),
+                        color: Colors.red),
+                    child: IconButton(
+                      icon: const Icon(
+                        Icons.add,
+                        color: Colors.white,
+                      ),
+                      onPressed: () {
+                        setDialogState(() {
+                          tempServingCount++;
+                        });
+                      },
+                    ),
+                  ),
+                ],
+              ),
+              actions: [
+                TextButton(
+                  onPressed: () {
+                    Navigator.of(context).pop(); // Close the dialog
+                  },
+                  child: Text(
+                    'Cancel',
+                    style: GoogleFonts.poppins(color: const Color(primary)),
+                  ),
+                ),
+                ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                      backgroundColor: const Color(primary)),
+                  onPressed: () {
+                    setState(() {
+                      servingCount = tempServingCount;
+                    });
+                    addAllIngredients();
+                    Navigator.of(context).pop(); // Close the dialog
+                  },
+                  child: Text(
+                    'OK',
+                    style: GoogleFonts.poppins(color: Colors.white),
+                  ),
+                ),
+              ],
+            );
+          },
+        );
+      },
+    );
+  }
+
+  void addAllIngredients() async {
+    for (int i = 0; i < widget.mealinfo.ingredients.length; i++) {
+      final ingredientName = widget.mealinfo.ingredients[i];
+      final baseQuantity = widget.mealinfo.qty[i];
+      final adjustedQuantity =
+          calculateAdjustedQuantity(baseQuantity, servingCount);
+
+      // Add ingredient to the database
+      await addIngredient(
+        IngredientModel(
+          name: ingredientName,
+          quantity: adjustedQuantity,
+        ),
+      );
+    }
+    ScaffoldMessenger.of(context).showSnackBar(
+      const SnackBar(content: Text('All ingredients added to the cart!')),
+    );
+  }
+
+  String calculateAdjustedQuantity(String baseQuantity, int servingCount) {
+    final regex = RegExp(r'^(\d+)([a-zA-Z]*)$');
+    final match = regex.firstMatch(baseQuantity);
+
+    if (match != null) {
+      final baseValue = int.tryParse(match.group(1) ?? '0') ?? 0;
+      final unit = match.group(2) ?? '';
+
+      return '${baseValue * servingCount}$unit';
+    }
+
+    // Return the original quantity if no match is found
+    return baseQuantity;
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -38,7 +174,14 @@ class _RecipestaticState extends State<Recipestatic> {
               icon: const Icon(
                 Icons.fastfood,
                 color: Colors.white,
-              ))
+              )),
+          IconButton(
+            onPressed: showServingDialog,
+            icon: const Icon(
+              Icons.add_shopping_cart,
+              color: Colors.white,
+            ),
+          ),
         ],
       ),
       body: SingleChildScrollView(
@@ -196,8 +339,6 @@ class _RecipestaticState extends State<Recipestatic> {
                                       size: 20,
                                       color: Color(primary),
                                     ),
-                                    // trailing:
-                                    //     Icon(Icons.check_box_outline_blank_outlined),
                                   );
                                 },
                               ),

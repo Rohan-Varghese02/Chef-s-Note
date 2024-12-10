@@ -27,7 +27,7 @@ class Categorybtn extends StatelessWidget {
               child: Row(
                 children: [
                   Text(
-                    'Category',
+                    '  Category',
                     style: GoogleFonts.poppins(
                       color: Colors.white,
                       fontSize: 20,

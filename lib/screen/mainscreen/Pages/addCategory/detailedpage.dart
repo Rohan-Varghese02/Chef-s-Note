@@ -1,5 +1,5 @@
 import 'package:cook_book/const/colors.dart';
-import 'package:cook_book/db/dbfunction/category_notifier.dart';
+import 'package:cook_book/db/dbnotifiers/category_notifier.dart';
 import 'package:cook_book/db/model/custom_category/custom_cat_model.dart';
 import 'package:cook_book/screen/mainscreen/Pages/addCategory/detailedpagewidget/detailedlist.dart';
 import 'package:flutter/material.dart';

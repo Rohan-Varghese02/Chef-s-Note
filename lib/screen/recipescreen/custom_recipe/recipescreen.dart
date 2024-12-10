@@ -1,10 +1,10 @@
 import 'dart:typed_data';
 
 import 'package:cook_book/const/colors.dart';
-import 'package:cook_book/db/dbfunction/recipe_notifier.dart';
+import 'package:cook_book/db/dbnotifiers/recipe_notifier.dart';
 import 'package:cook_book/db/model/recipe_model/recipe_model.dart';
 import 'package:cook_book/screen/mainscreen/Pages/userpagewidget/shoppingPage/shoppinglist.dart';
-import 'package:cook_book/screen/recipescreen/editrecipescreen.dart';
+import 'package:cook_book/screen/recipescreen/custom_recipe/editrecipescreen.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 

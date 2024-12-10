@@ -29,7 +29,7 @@ class Shoppinglistbutton extends StatelessWidget {
               child: Row(
                 children: [
                   Text(
-                    'Shopping List',
+                    '  Shopping List',
                     style:
                         GoogleFonts.poppins(color: Colors.white, fontSize: 20),
                   ),

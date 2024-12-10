@@ -10,7 +10,7 @@ class Explore extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: 415,
+      width: double.infinity,
       height: 180,
       decoration: BoxDecoration(
           color: const Color(primary), borderRadius: BorderRadius.circular(30)),

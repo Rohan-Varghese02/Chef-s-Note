@@ -27,7 +27,7 @@ class Mealplannerbutton extends StatelessWidget {
               child: Row(
                 children: [
                   Text(
-                    'Meal Planner',
+                    '  Meal Planner',
                     style:
                         GoogleFonts.poppins(color: Colors.white, fontSize: 20),
                   ),

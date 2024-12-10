@@ -371,7 +371,7 @@ class _RecipedetailsState extends State<Recipedetails> {
           ),
           DropdownButtonFormField<int>(
             value: widget.selectedCategoryId,
-            hint: Text('Select Category'),
+            hint: const Text('Select Category'),
             items: categoryBox.values.map((category) {
               return DropdownMenuItem<int>(
                   value: category.id as int, child: Text(category.title));
@@ -379,7 +379,7 @@ class _RecipedetailsState extends State<Recipedetails> {
             onChanged: (int? newValue) {
               widget.onCategpryChanged(newValue);
             },
-            decoration: InputDecoration(labelText: 'Category'),
+            decoration: const InputDecoration(labelText: 'Category'),
           )
         ],
       ),
