@@ -6,10 +6,9 @@ final ValueNotifier<List<IngredientModel>> ingredientNotifier =
     ValueNotifier([]);
 Future<void> addIngredient(IngredientModel value) async {
   final ingredientDB = await Hive.openBox<IngredientModel>('ingredientBox');
-  final _id = await ingredientDB.add(value);
-  value.id = _id;
-  print(value.id);
-  await ingredientDB.put(_id, value);
+  final id = await ingredientDB.add(value);
+  value.id = id;
+  await ingredientDB.put(id, value);
   ingredientNotifier.value.add(value);
   ingredientNotifier.notifyListeners();
 }
@@ -37,10 +36,8 @@ Future<void> deleteIngredient(String name, String quantity) async {
 
   if (keyToDelete != null) {
     await ingredientDB.delete(keyToDelete); // Delete by key
-    print('Deleted ingredient with name: $name');
     await getAllIngredient(); // Refresh the list
   } else {
-    print('Ingredient not found: $name');
   }
 }
 

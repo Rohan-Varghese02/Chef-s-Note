@@ -1,11 +1,11 @@
-// ignore_for_file: must_be_immutable
+// ignore_for_file: must_be_immutable, use_build_context_synchronously
 
 import 'dart:typed_data';
 
 import 'package:cook_book/const/colors.dart';
 import 'package:cook_book/const/utils.dart';
 import 'package:cook_book/db/model/usermodel/user_model.dart';
-import 'package:cook_book/screen/mainscreen/mainview.dart';
+import 'package:cook_book/screen/main_screen/main_view.dart';
 import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -45,9 +45,8 @@ class Proceedbtn extends StatelessWidget {
                 nameController.text.trim(), image!, selectedCategories);
             final sharedPrefs = await SharedPreferences.getInstance();
             await sharedPrefs.setBool(save_State, true);
-            print('Go to Next Page');
             Navigator.of(context).pushReplacement(
-                MaterialPageRoute(builder: (ctx) => const Mainview()));
+                MaterialPageRoute(builder: (ctx) => const MainView()));
           }
         } else {
           ScaffoldMessenger.of(context).showSnackBar(

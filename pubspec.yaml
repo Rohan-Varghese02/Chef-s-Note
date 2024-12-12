@@ -31,6 +31,7 @@ dependencies:
   build_runner: ^2.4.13
   chips_choice: ^3.0.1
   cupertino_icons: ^1.0.8
+  dropdown_search: ^6.0.1
   flutter:
     sdk: flutter
   google_fonts: ^6.2.1

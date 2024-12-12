@@ -2,7 +2,7 @@ import 'package:cook_book/db/model/custom_category/custom_cat_model.dart';
 import 'package:cook_book/db/model/recipe_model/recipe_model.dart';
 import 'package:cook_book/db/model/shoppinglist_model/shoppinglist_model.dart';
 import 'package:cook_book/db/model/usermodel/user_model.dart';
-import 'package:cook_book/screen/splashscreen/splashscreen.dart';
+import 'package:cook_book/screen/splash_screen/splashscreen.dart';
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 

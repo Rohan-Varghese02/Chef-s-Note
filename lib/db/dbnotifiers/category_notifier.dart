@@ -13,6 +13,7 @@ Future<void> addCategory(CustomCatModel value) async {
   value.id = id;
   await categoryDB.put(id, value);
   categoryListNotifier.value.add(value);
+  // ignore: invalid_use_of_protected_member
   categoryListNotifier.notifyListeners();
 }
 

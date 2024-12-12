@@ -7,12 +7,10 @@ import 'package:hive/hive.dart';
 final ValueNotifier<List<RecipeModel>> recipeListNotifier = ValueNotifier([]);
 Future<void> addRecipe(RecipeModel value) async {
   final recipeDB = await Hive.openBox<RecipeModel>('recipeBox');
-  final _id = await recipeDB.add(value);
-  value.id = _id;
+  final id = await recipeDB.add(value);
+  value.id = id;
   value.isFav = false;
-  await recipeDB.put(_id, value);
-  // print('Sucessful');
-  // print(value.isFav);
+  await recipeDB.put(id, value);
   recipeListNotifier.value.add(value);
   recipeListNotifier.notifyListeners();
 }
@@ -20,8 +18,6 @@ Future<void> addRecipe(RecipeModel value) async {
 Future<void> getRecipes() async {
   final recipeDB = await Hive.openBox<RecipeModel>('recipeBox');
   recipeListNotifier.value.clear();
-
-    print('All keys in Hive: ${recipeDB.keys}');
 
   recipeListNotifier.value.addAll(recipeDB.values);
   recipeListNotifier.notifyListeners();
@@ -36,16 +32,9 @@ Future<void> deleteRecipe(int? id) async {
 Future<void> updateRecipe(int id, RecipeModel updatedRecipe) async {
   final box = await Hive.openBox<RecipeModel>('recipeBox');
 
-  print('Keys in Hive: ${box.keys}');
-  print('ID to update: $id');
-
   if (box.containsKey(id)) {
     await box.put(id, updatedRecipe);
-    print('Edited successfully: $updatedRecipe');
     getRecipes();
-  } else {
-    print('Recipe not found for ID: $id');
-    throw Exception('Recipe not found!');
   }
 }
 
