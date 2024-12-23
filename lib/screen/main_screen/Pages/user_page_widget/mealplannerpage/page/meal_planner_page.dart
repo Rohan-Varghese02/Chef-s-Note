@@ -256,7 +256,7 @@ class _TimetablePageState extends State<TimetablePage> {
                       onTap: () {
                         if (meal != null) {
                           Navigator.of(context).push(MaterialPageRoute(
-                              builder: (ctx) => Recipestatic(
+                              builder: (ctx) => RecipeStatic(
                                     mealinfo: meal,
                                   )));
                         }

@@ -48,7 +48,7 @@ class _SplashscreenState extends State<Splashscreen> {
                 color: Color(primary),
               ),
               Text(
-                'CooKBooK',
+                'Loading Data',
                 style: GoogleFonts.poppins(
                     fontSize: 50,
                     fontWeight: FontWeight.bold,

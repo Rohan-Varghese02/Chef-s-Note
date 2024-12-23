@@ -6,7 +6,7 @@ import 'package:cook_book/const/colors.dart';
 import 'package:cook_book/db/dbnotifiers/recipe_notifier.dart';
 import 'package:cook_book/db/model/recipe_model/recipe_model.dart';
 import 'package:cook_book/screen/main_screen/Pages/user_page_widget/shoppingPage/shoppinglist.dart';
-import 'package:cook_book/screen/recipe_screen/custom_recipe/editrecipescreen.dart';
+import 'package:cook_book/screen/recipe_screen/custom_recipe/edit_recipe_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 

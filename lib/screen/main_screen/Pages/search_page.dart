@@ -271,7 +271,7 @@ class _SearchPageState extends State<SearchPage> {
                         child: InkWell(
                           onTap: () {
                             Navigator.of(context).push(MaterialPageRoute(
-                                builder: (ctx) => Recipestatic(
+                                builder: (ctx) => RecipeStatic(
                                       mealinfo: mealinfo,
                                     )));
                           },

@@ -20,7 +20,7 @@ class Categorydetails extends StatelessWidget {
           child: InkWell(
             onTap: () {
               Navigator.of(context).push(MaterialPageRoute(
-                  builder: (ctx) => Recipestatic(
+                  builder: (ctx) => RecipeStatic(
                         mealinfo: mealinfo,
                       )));
             },

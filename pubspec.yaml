@@ -34,6 +34,7 @@ dependencies:
   dropdown_search: ^6.0.1
   flutter:
     sdk: flutter
+  flutter_native_splash: ^2.4.3
   google_fonts: ^6.2.1
   google_nav_bar: ^5.0.7
   hive: ^2.2.3
@@ -87,3 +88,11 @@ flutter:
   #
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/to/font-from-package
+
+
+flutter_native_splash:
+  color: "#FFFFFF" # Background color for your splash screen
+  #image: assets/splash.png # Path to your splash screen image (optional)
+  android: true # Generate for Android
+  ios: true # Generate for iOS
+  web: false # Disable web splash screen (optional)

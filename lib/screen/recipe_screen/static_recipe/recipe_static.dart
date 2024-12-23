@@ -10,15 +10,15 @@ import 'package:cook_book/screen/recipe_screen/static_recipe/widgets/start_cooki
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-class Recipestatic extends StatefulWidget {
+class RecipeStatic extends StatefulWidget {
   Meal mealinfo;
-  Recipestatic({super.key, required this.mealinfo});
+  RecipeStatic({super.key, required this.mealinfo});
 
   @override
-  State<Recipestatic> createState() => _RecipestaticState();
+  State<RecipeStatic> createState() => _RecipeStaticState();
 }
 
-class _RecipestaticState extends State<Recipestatic> {
+class _RecipeStaticState extends State<RecipeStatic> {
   int servingCount = 1; // Default serving count
 
   void showServingDialog() {
