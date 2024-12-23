@@ -4,8 +4,8 @@ import 'package:cook_book/screen/main_screen/Pages/add_category/creationscreen.d
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-class Addcategory extends StatelessWidget {
-  const Addcategory({super.key});
+class AddCategory extends StatelessWidget {
+  const AddCategory({super.key});
 
   @override
   Widget build(BuildContext context) {

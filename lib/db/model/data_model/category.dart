@@ -1,4 +1,3 @@
-
 class Categories {
   const Categories(
       {required this.id,

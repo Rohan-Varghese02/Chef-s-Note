@@ -3,9 +3,10 @@ import 'dart:typed_data';
 import 'package:flutter/material.dart';
 
 class Recipepic extends StatelessWidget {
-    final Uint8List? image;
+  final Uint8List? image;
   final VoidCallback onImageSelect;
-  const Recipepic({super.key, required this.image, required this.onImageSelect});
+  const Recipepic(
+      {super.key, required this.image, required this.onImageSelect});
 
   @override
   Widget build(BuildContext context) {

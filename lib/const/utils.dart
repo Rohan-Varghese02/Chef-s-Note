@@ -14,4 +14,3 @@ pickImage(ImageSource source) async {
 
 // Used to check wheter the User logged in or not
 const save_State = 'UserLoggin';
-

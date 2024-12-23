@@ -58,6 +58,4 @@ class Textfields extends StatelessWidget {
       ),
     );
   }
-
-  
 }

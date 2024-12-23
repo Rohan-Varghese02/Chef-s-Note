@@ -2,10 +2,10 @@ import 'dart:typed_data';
 
 import 'package:cook_book/const/Colors.dart';
 import 'package:cook_book/const/utils.dart';
-import 'package:cook_book/screen/profile/widgets/cattags.dart';
-import 'package:cook_book/screen/profile/widgets/nametext.dart';
-import 'package:cook_book/screen/profile/widgets/proceedbtn.dart';
-import 'package:cook_book/screen/profile/widgets/profilephoto.dart';
+import 'package:cook_book/screen/profile_screen/widgets/cattags.dart';
+import 'package:cook_book/screen/profile_screen/widgets/nametext.dart';
+import 'package:cook_book/screen/profile_screen/widgets/proceedbtn.dart';
+import 'package:cook_book/screen/profile_screen/widgets/profilephoto.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 

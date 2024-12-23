@@ -25,8 +25,7 @@ class Detailedpage extends StatelessWidget {
                 if (data.id != null) {
                   deleteCategory(data.id!);
                   Navigator.of(context).pop();
-                } else {
-                }
+                } else {}
               },
               icon: const Icon(
                 Icons.delete,
@@ -34,7 +33,9 @@ class Detailedpage extends StatelessWidget {
               ))
         ],
       ),
-      body: Detailedlist(id: data.id,),
+      body: Detailedlist(
+        id: data.id,
+      ),
     );
   }
 }

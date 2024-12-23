@@ -1,5 +1,4 @@
 import 'package:cook_book/const/colors.dart';
-//import 'package:cook_book/screen/common/navbar.dart';
 import 'package:cook_book/screen/main_screen/Pages/create_page.dart';
 import 'package:cook_book/screen/main_screen/Pages/favourite_page.dart';
 import 'package:cook_book/screen/main_screen/Pages/home_page.dart';
@@ -17,7 +16,8 @@ class MainView extends StatefulWidget {
 
 class _MainViewState extends State<MainView> {
   int _selectedIndex = 0; // To track the selected index in GNav
-  final PageController _pageController = PageController(); // To control the pages
+  final PageController _pageController =
+      PageController(); // To control the pages
   @override
   void dispose() {
     _pageController.dispose();
@@ -94,7 +94,6 @@ class _MainViewState extends State<MainView> {
             ],
           ),
         ),
-        
       ),
     );
   }

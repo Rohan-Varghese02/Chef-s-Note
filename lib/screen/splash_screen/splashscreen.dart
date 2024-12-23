@@ -3,7 +3,7 @@
 import 'package:cook_book/const/colors.dart';
 import 'package:cook_book/const/utils.dart';
 import 'package:cook_book/screen/main_screen/main_view.dart';
-import 'package:cook_book/screen/profile/profile.dart';
+import 'package:cook_book/screen/profile_screen/profile.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:shared_preferences/shared_preferences.dart';

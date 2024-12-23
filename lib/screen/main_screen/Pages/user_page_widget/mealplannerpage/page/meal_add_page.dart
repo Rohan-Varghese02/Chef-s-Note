@@ -15,14 +15,12 @@ class MealAddPage extends StatefulWidget {
 }
 
 class _MealAddPageState extends State<MealAddPage> {
-
-    Future<void> _saveMeal(String day, String time, Meal meal) async {
+  Future<void> _saveMeal(String day, String time, Meal meal) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     String key = '$day-$time';
     await prefs.setString(key, jsonEncode(meal.toJson()));
     // await _loadTimetable();
   }
-
 
   final List<String> days = [
     'Monday',
@@ -94,7 +92,7 @@ class _MealAddPageState extends State<MealAddPage> {
                 labelStyle: GoogleFonts.poppins(color: const Color(primary)),
               ),
             ),
-             TextButton(
+            TextButton(
               onPressed: () => Navigator.pop(context),
               child: Text(
                 'Cancel',

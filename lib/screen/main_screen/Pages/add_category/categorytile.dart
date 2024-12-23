@@ -30,8 +30,10 @@ class _CategorytileState extends State<Categorytile> {
               final category = categoryList[index];
               return InkWell(
                 onTap: () {
-                  Navigator.of(context).push(
-                      MaterialPageRoute(builder: (ctx) => Detailedpage(data: category,)));
+                  Navigator.of(context).push(MaterialPageRoute(
+                      builder: (ctx) => Detailedpage(
+                            data: category,
+                          )));
                 },
                 child: Card(
                   shape: RoundedRectangleBorder(

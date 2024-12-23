@@ -14,5 +14,6 @@ class UserModel extends HiveObject {
   @HiveField(2)
   Uint8List? profilePic;
 
-  UserModel({required this.name, required this.cuisine, required this.profilePic});
+  UserModel(
+      {required this.name, required this.cuisine, required this.profilePic});
 }

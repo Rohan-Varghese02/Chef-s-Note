@@ -67,7 +67,7 @@ class HomePage extends StatelessWidget {
                     IconButton(
                         onPressed: () {
                           Navigator.of(context).push(MaterialPageRoute(
-                              builder: (ctx) => const Addcategory()));
+                              builder: (ctx) => const AddCategory()));
                         },
                         icon: const Icon(Icons.add))
                   ],

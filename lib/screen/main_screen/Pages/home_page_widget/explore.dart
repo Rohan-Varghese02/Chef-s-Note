@@ -37,7 +37,7 @@ class Explore extends StatelessWidget {
                 ElevatedButton(
                     onPressed: () {
                       Navigator.of(context).push(MaterialPageRoute(
-                          builder: (ctx) => const Addcategory()));
+                          builder: (ctx) => const AddCategory()));
                     },
                     child: Padding(
                       padding: const EdgeInsets.all(15.0),

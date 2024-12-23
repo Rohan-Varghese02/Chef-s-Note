@@ -11,7 +11,7 @@ class IngredientModel extends HiveObject {
   final String name;
 
   @HiveField(2)
-   String quantity;
+  String quantity;
 
-  IngredientModel({this.id,required this.name, required this.quantity});
+  IngredientModel({this.id, required this.name, required this.quantity});
 }

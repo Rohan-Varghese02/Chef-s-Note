@@ -30,7 +30,6 @@ void main() async {
     await Hive.openBox<IngredientModel>('ingredientBox');
   }
 
-
   runApp(const MyApp());
 }
 

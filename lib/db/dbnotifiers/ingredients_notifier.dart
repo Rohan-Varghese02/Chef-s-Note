@@ -37,8 +37,7 @@ Future<void> deleteIngredient(String name, String quantity) async {
   if (keyToDelete != null) {
     await ingredientDB.delete(keyToDelete); // Delete by key
     await getAllIngredient(); // Refresh the list
-  } else {
-  }
+  } else {}
 }
 
 Future<void> addIngredientAddButtonclick({

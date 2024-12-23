@@ -11,7 +11,7 @@ class Categorybtn extends StatelessWidget {
     return InkWell(
       onTap: () {
         Navigator.of(context)
-            .push(MaterialPageRoute(builder: (ctx) => const Addcategory()));
+            .push(MaterialPageRoute(builder: (ctx) => const AddCategory()));
       },
       child: Container(
         width: double.infinity,
