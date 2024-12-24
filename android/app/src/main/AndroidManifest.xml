@@ -1,4 +1,9 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <uses-permission
+     android:name="android.permission.WRITE_EXTERNAL_STORAGE"
+     android:maxSdkVersion="18" />
+
     <application
         android:label="Chef's Note"
         android:name="${applicationName}"

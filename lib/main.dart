@@ -40,7 +40,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return const MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: Splashscreen(),
+      home: Splashscreen(), // hOSTING TEZT
     );
   }
 }
